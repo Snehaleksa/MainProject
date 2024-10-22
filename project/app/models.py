@@ -30,3 +30,12 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+
+class Product(models.Model):
+    product_id=models.ForeignKey(Company,on_delete=models.CASCADE)
+    name=models.CharField(max_length=100)
+    image=models.FileField(upload_to='media')
+    description=models.CharField(max_length=100)
+    price=models.IntegerField()

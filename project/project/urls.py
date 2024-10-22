@@ -30,6 +30,9 @@ urlpatterns = [
     path('companyhome',views.Companyhome),
     path('edit/<int:id>',views.edit,name='edit'),
     path('admin',views.admin),
+    path('addproduct',views.addproduct,name='addproduct'),
+    path('adminuseraccept/<int:id>',views.adminuseraccept,name='adminuseraccept'),
+    path('viewproduct',views.viewproduct,name='viewproduct'),
 ]
 
 

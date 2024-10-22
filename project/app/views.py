@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import auth
-from .models import CustomUser,User,Company
+from .models import CustomUser,User,Company,Product
 
 # Create your views here.
 def index(request):
@@ -21,9 +21,9 @@ def Login(request):
 
         if user is not None:
             login(request,user)
-            if user.user_type=="user" and user.status=="accepted":
+            if user.user_type=="user" :
                 return redirect(Userhome)
-            elif user.user_type=="company":
+            elif user.user_type=="company" and user.status=="accepted":
                 return redirect(Companyhome)
             else:
                 return render(request,'login.html',{'message':"admin not aproved"})
@@ -38,7 +38,23 @@ def Login(request):
 
 
 def admin(request):
-    return render(request,'admin.html')
+    user=Company.objects.all()
+    return render(request,'admin.html',{'user':user})
+
+def adminuseraccept(request,id):
+    data=Company.objects.get(id=id)
+    if request.method=='POST':                                   
+        status =request.POST.get('status')
+        if status=='accepted':
+            data.company_id.status='accepted'
+        elif status=='rejected':
+            data.company_id.status='rejected'
+        data.company_id.save()
+        return redirect(admin)
+    else:
+        return redirect(admin)
+
+ 
 
 
 #User
@@ -99,4 +115,28 @@ def Companyhome(request):
     data=CustomUser.objects.get(id=request.user.id)    
     data1=Company.objects.get(company_id=data)
     return render(request,'companyhome.html',{'data1':data1})
+
+
+
+
+#Product
+def addproduct(request):
+    data=Company.objects.get(company_id=request.user.id)
+    if request.method=='POST':
+        name=request.POST['name']
+        image=request.FILES['image']
+        description=request.POST['description']
+        price=request.POST['price']
+        
+        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price)
+        data1.save()
+        return HttpResponse("success")
+    else:
+        return  render(request,'addproduct.html')
     
+
+def viewproduct(request):
+    
+    company = Company.objects.get(company_id=request.user.id)
+    products = Product.objects.filter(product_id=company)
+    return render(request, 'viewproduct.html', {'products': products, 'company': company})
