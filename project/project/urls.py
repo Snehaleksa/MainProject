@@ -26,14 +26,25 @@ urlpatterns = [
     path('userregister',views.Register),
     path('companyregister',views.companyregister),
     path('login',views.Login),
-    path('userhome',views.Userhome),
-    path('companyhome',views.Companyhome),
+    path('userhome',views.Userhome,name='userhome'),
+    path('profileview',views.Profileview,name='profileview'),
+    path('companyhome',views.Companyhome,name='companyhome'),
+    path('companyprofile',views.Companyprofile,name='companyprofile'),
     path('edit/<int:id>',views.edit,name='edit'),
+    path('companyedit/<int:id>',views.companyedit,name='companyedit'),
     path('admin',views.admin),
     path('addproduct',views.addproduct,name='addproduct'),
     path('adminuseraccept/<int:id>',views.adminuseraccept,name='adminuseraccept'),
     path('viewproduct',views.viewproduct,name='viewproduct'),
+    path('editproduct/<int:id>',views.editproduct,name='editproduct'),
+    path('delete/<int:id>',views.delete,name='delete'),
+    path('adminhome',views.adminhome,name='adminhome'),
+    path('userdetails',views.userdetails,name='userdetails'),
+    path('userviewproduct',views.Userproductview,name='userviewproduct'),
+    path('search',views.searchproduct),
+    path('companydetails',views.Companydetails,name='companydetails'),
 ]
+
 
 
 if settings.DEBUG:

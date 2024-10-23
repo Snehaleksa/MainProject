@@ -38,8 +38,12 @@ def Login(request):
 
 
 def admin(request):
-    user=Company.objects.all()
-    return render(request,'admin.html',{'user':user})
+    return render(request,'admin.html')
+
+
+def adminhome(request):
+    user=Company.objects.all()   
+    return render(request,'adminhome.html',{'user':user}) 
 
 def adminuseraccept(request,id):
     data=Company.objects.get(id=id)
@@ -53,6 +57,15 @@ def adminuseraccept(request,id):
         return redirect(admin)
     else:
         return redirect(admin)
+
+
+def userdetails(request):
+    data=User.objects.all()
+    return render(request,'userdetails.html',{'data':data})
+
+def Companydetails(request):
+    data=Company.objects.all()
+    return render(request,'companydetails.html',{'data':data})
 
  
 
@@ -74,11 +87,17 @@ def Register(request):
         return HttpResponse("success")
     else:
         return render(request,"userregister.html")
+    
 
 def Userhome(request):
+    return render(request,'userhome.html')    
+
+    
+
+def Profileview(request):
     data=CustomUser.objects.get(id=request.user.id)
     data1=User.objects.get(user_id=data)
-    return render(request,'userhome.html',{'data1':data1})
+    return render(request,'profileview.html',{'data1':data1})
 
 def edit(request,id):
     data=User.objects.get(id=id)
@@ -90,9 +109,17 @@ def edit(request,id):
         data.email=request.POST['email']
         data.phone=request.POST['phone']
         data.save()
-        return redirect(Userhome)
+        return redirect(Profileview)
     else:
         return render(request,'edit.html',{'data':data})
+
+
+
+def Userproductview(request):
+    data=Product.objects.all()
+    return render(request,'userproductview.html',{'data':data})
+
+
 
 #Company
 def companyregister(request):
@@ -112,9 +139,24 @@ def companyregister(request):
         return render(request,"companyregister.html")
     
 def Companyhome(request):
+    return render(request,'companyhome.html')    
+    
+def Companyprofile(request):
     data=CustomUser.objects.get(id=request.user.id)    
     data1=Company.objects.get(company_id=data)
-    return render(request,'companyhome.html',{'data1':data1})
+    return render(request,'companyprofile.html',{'data1':data1})
+
+def companyedit(request,id):
+    data=Company.objects.get(id=id)
+    if request.method=='POST':
+        data.name=request.POST['name']
+        data.address=request.POST['address']
+        data.contactnumber=request.POST['contactnumber']
+        data.email=request.POST['email']
+        data.save()
+        return redirect(Companyprofile)
+    else:
+        return render(request,'companyedit.html',{'data':data})
 
 
 
@@ -136,7 +178,36 @@ def addproduct(request):
     
 
 def viewproduct(request):
-    
     company = Company.objects.get(company_id=request.user.id)
     products = Product.objects.filter(product_id=company)
     return render(request, 'viewproduct.html', {'products': products, 'company': company})
+
+
+
+def editproduct(request, id):
+    
+    data = Product.objects.get(id=id)
+
+
+    if request.method == 'POST':
+        data.name = request.POST['name']
+        data.description = request.POST['description']
+        data.price = request.POST['price']
+        if 'image' in request.FILES:
+            data.image = request.FILES['image']
+        data.save() 
+        return redirect(viewproduct) 
+    return render(request, 'editproduct.html', {'data': data})
+
+
+def delete(request,id):
+    data=Product.objects.get(id=id)
+    data.delete()
+    return redirect(viewproduct)    
+
+
+def searchproduct(request):
+    if request.method=='POST':
+        search=request.POST['search']
+        data=Product.objects.filter(name=search)
+        return render(request,'userproductview.html',{'data':data})

@@ -21,7 +21,9 @@
                 <td>{{ product.name }}</td>
                 <td>{{ product.description }}</td>
                 <td>{{ product.price }}</td>
-                <td><img src="{{ product.image.url }}" alt="{{ product.name }}" width="100"></td>
+                <td><img src="{{ product.image.url }}" alt="" width="100"></td>
+                <td><a href="{% url 'editproduct' id=product.id %}">Edit</a></td>
+                <td><a href="{% url 'delete' id=product.id %}">Delete</a></td>
             </tr>
             
             </tr>
