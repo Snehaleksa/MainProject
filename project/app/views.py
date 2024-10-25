@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import auth
-from .models import CustomUser,User,Company,Product
+from .models import CustomUser,User,Company,Product,Cart
 
 # Create your views here.
 def index(request):
@@ -119,6 +119,12 @@ def Userproductview(request):
     data=Product.objects.all()
     return render(request,'userproductview.html',{'data':data})
 
+def searchproduct(request):
+    if request.method=='POST':
+        search=request.POST.get('search')
+        data=Product.objects.filter(name__icontains=search)
+        return render(request,'userproductview.html',{'data':data})
+
 
 
 #Company
@@ -206,8 +212,39 @@ def delete(request,id):
     return redirect(viewproduct)    
 
 
-def searchproduct(request):
-    if request.method=='POST':
-        search=request.POST['search']
-        data=Product.objects.filter(name=search)
-        return render(request,'userproductview.html',{'data':data})
+
+
+def viewproductdetails(request, id):
+    
+    product = Product.objects.get(id=id)
+
+    return render(request, 'viewproductdetails.html', {'product': product})
+
+
+
+
+def addtocart(request,id):
+
+    product = Product.objects.get( id=id)
+
+    
+    user=User.objects.get( user_id=request.user.id)
+
+    
+    cart_item = Cart.objects.create(product_id=product, user_id=user)
+    cart_item.save()
+    return HttpResponse("success")  
+
+
+
+
+def viewcart(request):
+    
+    user = User.objects.get( user_id=request.user.id)
+    data= Cart.objects.filter(user_id=user)
+
+    return render(request, 'viewcart.html', {'data': data})
+
+
+
+

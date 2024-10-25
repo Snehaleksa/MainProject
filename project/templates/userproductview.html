@@ -24,6 +24,8 @@
             <th>Image</th>
             <th>Description</th>
             <th>Price</th>
+            <th></th>
+            <th></th>
         </tr>
         {% for i in data %}
         <tr>
@@ -31,6 +33,9 @@
             <td><img src="{{ i.image.url }}" alt="" height="150px" width="150px"></td>
             <td>{{i.description}}</td>
             <td>{{i.price}}</td>
+            <td><a href="{% url 'viewproductdetails' id=i.id %}">View</a></td>
+            <td><a href="{% url 'addtocart' id=i.id %}">Add to Cart</a></td>
+            <td><a href="{% url 'viewcart' %}">Viewcart</a></td>
         </tr>
         {% endfor %}
     </table>

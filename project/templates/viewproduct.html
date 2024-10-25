@@ -3,34 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Product Cards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            
+            
+    
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            height: 300px;
+            max-width: 320px;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+        }
+    
+        .image {
+        
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        p {
+            color: rgb(122, 119, 119);
+            margin-bottom: 10px;
+        }
+        .price {
+            color: rgb(65, 177, 65);
+    
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .card a {
+            text-decoration: none;
+            color: white;
+            background-color: rgb(128, 128, 243);
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+            
+            
+        }
+        
+        .card .delete {
+            background-color: rgb(243, 111, 111);
+            margin-left: 10px;
+
+        }
+        
+    </style>
 </head>
 <body>
-    <table>
-        
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Image</th>
-            </tr>
-        
-        
-            {% for product in products %}
-            <tr>
-                <td>{{ product.name }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
-                <td><img src="{{ product.image.url }}" alt="" width="100"></td>
-                <td><a href="{% url 'editproduct' id=product.id %}">Edit</a></td>
-                <td><a href="{% url 'delete' id=product.id %}">Delete</a></td>
-            </tr>
-            
-            </tr>
-            {% endfor %}
-        
-    </table>
-    
+    <div class="container">
+        {% for product in products %}
+        <div class="card">
+            <img class="image" src="{{ product.image.url }}" alt="" width="100px" height="100px" class="product-image">
+            <h2>{{ product.name }}</h2>
+            <p>{{ product.description }}</p>
+            <p class="price">{{ product.price }}</p>
+            <a href="{% url 'editproduct' id=product.id %}">Edit</a>
+            <a href="{% url 'delete' id=product.id %}" class="delete">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
-

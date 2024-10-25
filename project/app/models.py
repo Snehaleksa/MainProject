@@ -39,3 +39,9 @@ class Product(models.Model):
     image=models.FileField(upload_to='media')
     description=models.CharField(max_length=100)
     price=models.IntegerField()
+
+
+
+class Cart(models.Model):
+    product_id=models.ForeignKey(Product,on_delete=models.CASCADE)
+    user_id=models.ForeignKey(User,on_delete=models.CASCADE)

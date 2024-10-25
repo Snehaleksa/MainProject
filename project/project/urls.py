@@ -43,6 +43,11 @@ urlpatterns = [
     path('userviewproduct',views.Userproductview,name='userviewproduct'),
     path('search',views.searchproduct),
     path('companydetails',views.Companydetails,name='companydetails'),
+    path('viewproductdetails/<int:id>',views.viewproductdetails,name='viewproductdetails'),
+    path('addtocart/<int:id>/',views.addtocart, name='addtocart'),
+    path('viewcart',views.viewcart,name='viewcart'),
+    
+
 ]
 
 
