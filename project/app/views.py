@@ -215,22 +215,15 @@ def delete(request,id):
 
 
 def viewproductdetails(request, id):
-    
     product = Product.objects.get(id=id)
-
     return render(request, 'viewproductdetails.html', {'product': product})
 
 
 
 
 def addtocart(request,id):
-
     product = Product.objects.get( id=id)
-
-    
     user=User.objects.get( user_id=request.user.id)
-
-    
     cart_item = Cart.objects.create(product_id=product, user_id=user)
     cart_item.save()
     return HttpResponse("success")  
@@ -239,10 +232,8 @@ def addtocart(request,id):
 
 
 def viewcart(request):
-    
     user = User.objects.get( user_id=request.user.id)
     data= Cart.objects.filter(user_id=user)
-
     return render(request, 'viewcart.html', {'data': data})
 
 

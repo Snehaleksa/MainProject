@@ -3,15 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Product Cards</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color:  whitesmoke;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            padding: 20px;
+            
+        }
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            
+        }
+        
+        .image{
+            width: 100%;
+            height: auto;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .card h2 {
+            margin-bottom: 10px;
+            color: rgb(82,79,79);
+        }
+        .card p {
+            color: rgb(82, 79, 79);
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
-    {% for i in data %}
-    {{i.product_id.name}}
-    {{i.product_id.description}}
-    <img src="{{i.product_id.image.url}}" alt="">
-    
-    {% endfor %}
-    
+    <div class="container">
+        {% for i in data %}
+        <div class="card">
+            <h2>{{ i.product_id.name }}</h2>
+            <p>{{ i.product_id.description }}</p>
+            <img class="image" src="{{ i.product_id.image.url }}" alt="" height="100px" width="100px">
+            <h2>{{i.product_id.price}}</h2>
+        </div>
+        {% endfor %}
+    </div>
 </body>
 </html>
