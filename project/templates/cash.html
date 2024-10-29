@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Success
+    {{request.user.id}}
+    {{data1.product_id}}
+    {{data1.name}}
+    {{data1.price}}
+    {{data.quantity}}
+
+    <a href="{% url 'orderplaced' %}">Place order</a>
+</body>
+</html>

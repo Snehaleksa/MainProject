@@ -224,9 +224,13 @@ def viewproductdetails(request, id):
 def addtocart(request,id):
     product = Product.objects.get( id=id)
     user=User.objects.get( user_id=request.user.id)
-    cart_item=Cart.objects.create(product_id=product, user_id=user)
-    cart_item.save()
-    return HttpResponse("success") 
+    if Cart.objects.filter(product_id=product, user_id=user).exists():
+        return HttpResponse("Product already exist")
+    else:
+       cart_item=Cart.objects.create(product_id=product, user_id=user)
+       cart_item.save()
+       return HttpResponse("success") 
+
  
 
 
@@ -256,6 +260,22 @@ def buyproduct(request,id):
     data=Cart.objects.get(id=id)
     data1=data.product_id
     totalprice = data1.price * data.quantity
+    
     return render(request,'buyproduct.html',{'data':data,'data1':data1,'totalprice':totalprice}) 
+
+
+def Cash(request,id):
+    data=Cart.objects.get(id=id)
+    data1=data.product_id
+    user=CustomUser.objects.get(id=request.user.id)
+    return render(request,'cash.html',{'data':data,'data1':data1,'user':user})
+
+def placeorder(request):
+    return render(request,'order.html')
+
+
+
+
+
 
 

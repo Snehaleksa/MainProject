@@ -49,6 +49,8 @@ urlpatterns = [
     path('deletecart/<int:id>',views.deletecart,name='deletecart'),
     path('editcart/<int:id>',views.editcart,name='editcart'),
     path('buyproduct/<int:id>',views.buyproduct,name='buyproduct'),
+    path('cash/<int:id>',views.Cash,name='cash'),
+   
     
     
 

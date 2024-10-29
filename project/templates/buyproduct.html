@@ -23,14 +23,10 @@
             <th>{{data1.price}}</th>
             <th>{{data.quantity}}</th>
             <th>{{totalprice}}</th>
+            
         </tr>
     </table>
-    
-    <label for="payment">Select Payment Method:</label>
-    <select id="payment" name="payment">
-        <option value="cash">Cash</option>
-        <option value="debit">Debit</option>
-    </select>
-        
+    <a href="{% url 'cash' id=data.id %}">Cash</a>
+   
 </body>
 </html>
