@@ -61,6 +61,9 @@
             <p>{{ i.product_id.description }}</p>
             <img class="image" src="{{ i.product_id.image.url }}" alt="" height="100px" width="100px">
             <h2>{{i.product_id.price}}</h2>
+            <a href="{% url 'deletecart' id=i.id %}" class="delete">Delete</a>
+            <a href="{% url 'editcart' id=i.id %}">Edit</a>
+            <a href="{% url 'buyproduct' id=i.id %}">Buy</a>
         </div>
         {% endfor %}
     </div>

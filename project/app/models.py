@@ -45,3 +45,14 @@ class Product(models.Model):
 class Cart(models.Model):
     product_id=models.ForeignKey(Product,on_delete=models.CASCADE)
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
+    quantity=models.IntegerField(default=1,null=True,blank=True)
+
+
+class Order(models.Model):
+    user_id=models.ForeignKey(User,on_delete=models.CASCADE)
+    cart_id=models.ForeignKey(Cart,on_delete=models.CASCADE)
+    payment=models.IntegerField()
+    paymentmethod=models.CharField(max_length=100)
+    
+
+        

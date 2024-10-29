@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import auth
-from .models import CustomUser,User,Company,Product,Cart
+from .models import CustomUser,User,Company,Product,Cart,Order
 
 # Create your views here.
 def index(request):
@@ -224,9 +224,10 @@ def viewproductdetails(request, id):
 def addtocart(request,id):
     product = Product.objects.get( id=id)
     user=User.objects.get( user_id=request.user.id)
-    cart_item = Cart.objects.create(product_id=product, user_id=user)
+    cart_item=Cart.objects.create(product_id=product, user_id=user)
     cart_item.save()
-    return HttpResponse("success")  
+    return HttpResponse("success") 
+ 
 
 
 
@@ -236,6 +237,25 @@ def viewcart(request):
     data= Cart.objects.filter(user_id=user)
     return render(request, 'viewcart.html', {'data': data})
 
+def deletecart(request,id):
+    data=Cart.objects.get(id=id)
+    data.delete()
+    return redirect(viewcart)
 
+def editcart(request,id):
+    data=Cart.objects.get(id=id)
+    if request.method=='POST':
+        data.quantity=request.POST['quantity'] 
+        data.save()  
+        return redirect(viewcart)
+    else:
+        return render(request,'editcart.html',{'data':data})
+    
+
+def buyproduct(request,id):
+    data=Product.objects.get(id=id)
+    data1=Cart.objects.get(id=id)
+    totalprice = data.price * data1.quantity
+    return render(request,'buyproduct.html',{'data':data,'data1':data1,'totalprice':totalprice}) 
 
 
