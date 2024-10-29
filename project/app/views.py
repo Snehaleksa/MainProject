@@ -253,9 +253,9 @@ def editcart(request,id):
     
 
 def buyproduct(request,id):
-    data=Product.objects.get(id=id)
-    data1=Cart.objects.get(id=id)
-    totalprice = data.price * data1.quantity
+    data=Cart.objects.get(id=id)
+    data1=data.product_id
+    totalprice = data1.price * data.quantity
     return render(request,'buyproduct.html',{'data':data,'data1':data1,'totalprice':totalprice}) 
 
 
