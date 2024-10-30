@@ -50,8 +50,9 @@ urlpatterns = [
     path('editcart/<int:id>',views.editcart,name='editcart'),
     path('buyproduct/<int:id>',views.buyproduct,name='buyproduct'),
     path('cash/<int:id>',views.Cash,name='cash'),
-   
-    
+    path('debit_card_payment/<int:id>', views.debit_card_payment, name='debit_card_payment'),
+
+
     
 
 ]

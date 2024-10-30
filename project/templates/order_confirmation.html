@@ -6,13 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    
-    {{user.id}}
-    {{data1.product_id}}
-    {{data1.name}}
-    {{data1.price}}
-    {{data.quantity}}
-
-    
+    <h3>Order Confirmation</h3>
+    <p>Your order for {{ product.name }} has been placed successfully.</p>
+    <p>Total Price: {{ total_price }}</p>
+    <p>{{ message }}</p>
+     
 </body>
 </html>

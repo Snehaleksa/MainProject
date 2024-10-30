@@ -27,6 +27,17 @@
         </tr>
     </table>
     <a href="{% url 'cash' id=data.id %}">Cash</a>
-   
+    
+    <a href="{% url 'debit_card_payment' id=data.id %}">Pay with Debit Card</a>
+        <label for="paymentmethod">Select Payment Method:</label>
+        <select name="paymentmethod" required>
+            <option value="">Choose</option>
+           <option value="cash">Cash</option>
+            <option value="Debit Card">Debit Card</option>
+        </select>
+        
+
+    </form>
+    
 </body>
 </html>

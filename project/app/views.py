@@ -274,6 +274,37 @@ def placeorder(request):
     return render(request,'order.html')
 
 
+# views.py
+
+def debit_card_payment(request, id):
+    user = User.objects.get(user_id=request.user.id)  
+    cart_item = Cart.objects.get(id=id, user_id=user) 
+
+    if request.method == 'POST':
+        
+        total_payment = cart_item.product_id.price * cart_item.quantity
+        
+        # Create an order with the required fields
+        data=Order.objects.create(
+            user_id=user,
+            cart_id=cart_item,
+            payment=total_payment,
+            paymentmethod='Debit Card'
+        )
+        data.save()
+
+        # Render confirmation page
+        return render(request, 'order_confirmation.html', {
+            'message': "Order placed successfully with Debit Card payment."
+        })
+
+    # If GET request, render the debit card payment form
+    return render(request, 'debit_card_payment.html', {
+        'cart_item': cart_item,
+    })
+
+
+
 
 
 
