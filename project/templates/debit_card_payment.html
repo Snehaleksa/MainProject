@@ -1,17 +1,27 @@
-<h3>Debit Card Payment for {{ product.name }}</h3>
-<p>Quantity: {{ cart_item.quantity }}</p>
-<p>Total Price: {{ total_price }}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {{ total_payment }}
+    <form method="POST">
+        {% csrf_token %}
+        <label>Card Number:</label>
+        <input type="text" name="card_number" required>
+    
+        <label>Expiry Date:</label>
+        <input type="text" name="card_expiry" required>
+    
+        <label>CVV:</label>
+        <input type="text" name="card_cvv" required>
+    
+        <button type="submit">Submit Payment</button>
+    </form>
+</body>
+</html>
 
-<form method="POST">
-    {% csrf_token %}
-    <label>Card Number:</label>
-    <input type="text" name="card_number" required>
 
-    <label>Expiry Date:</label>
-    <input type="text" name="card_expiry" required>
 
-    <label>CVV:</label>
-    <input type="text" name="card_cvv" required>
-
-    <button type="submit">Submit Payment</button>
-</form>
