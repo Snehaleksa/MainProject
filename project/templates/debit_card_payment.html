@@ -6,8 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    {{ total_payment }}
-    <form method="POST">
+    <p>product_name:{{data.product_id.name}}</p>
+    <p>Quantity:{{data.quantity}}</p>
+    <p> price:{{total_payment}}</p>
+    <form action="" method="POST">
         {% csrf_token %}
         <label>Card Number:</label>
         <input type="text" name="card_number" required>

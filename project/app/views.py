@@ -264,7 +264,7 @@ def buyproduct(request,id):
     return render(request,'buyproduct.html',{'data':data,'data1':data1,'totalprice':totalprice}) 
 
 
-def Cash(request,id):
+def Cash_payment(request,id):
     data=Cart.objects.get(id=id)
     data1=data.product_id
     user=CustomUser.objects.get(id=request.user.id)
@@ -279,17 +279,18 @@ def placeorder(request):
 def debit_card_payment(request, id):
     user = User.objects.get(user_id=request.user.id) 
     data= Cart.objects.get(id=id, user_id=user) 
-    
+    total_payment=data.product_id.price* data.quantity
     if request.method == 'POST':
-        total_payment=data.product_id.price* data.quantity
+       
         data1=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Debitcard')
         data1.save()    
-        return render(request, 'order_confirmation.html')
+        return render(request, 'order_confirmation.html',{'user':user,'data':data,'total_payment':total_payment})
     else:
-       return render(request, 'debit_card_payment.html', {'data': data})
+       return render(request, 'debit_card_payment.html', {'data': data,'total_payment':total_payment})
         
 
-
+def order(request):
+    data=Product.objects.get(id=id)
 
 
 
