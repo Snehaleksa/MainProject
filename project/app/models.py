@@ -53,6 +53,7 @@ class Order(models.Model):
     cart_id=models.ForeignKey(Cart,on_delete=models.CASCADE)
     payment=models.IntegerField()
     paymentmethod=models.CharField(max_length=100)
+    status=models.CharField(null=True,blank=True,max_length=100)
     
 
         

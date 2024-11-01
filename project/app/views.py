@@ -35,6 +35,11 @@ def Login(request):
             return render(request,'login.html',context)
     else:
         return render(request,'login.html')   
+    
+
+def Logout(request):
+    auth.logout(request)
+    return redirect(Login)    
 
 
 def admin(request):
@@ -267,11 +272,15 @@ def buyproduct(request,id):
 def Cash_payment(request,id):
     data=Cart.objects.get(id=id)
     data1=data.product_id
-    user=CustomUser.objects.get(id=request.user.id)
-    return render(request,'cash.html',{'data':data,'data1':data1,'user':user})
+    user=User.objects.get(user_id=request.user.id)
+    total_payment=data1.price*data.quantity
+    if request.method=='POST':
+        order=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
+        order.save()
+        return render(request,'order.html',{'data':data,'data1':data1,'user':user})
+    else:
+        return render(request,'cash.html',{'data':data,'user':user})
 
-def placeorder(request):
-    return render(request,'order.html')
 
 
 
@@ -282,7 +291,7 @@ def debit_card_payment(request, id):
     total_payment=data.product_id.price* data.quantity
     if request.method == 'POST':
        
-        data1=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Debitcard')
+        data1=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Debitcard',status='order send')
         data1.save()    
         return render(request, 'order_confirmation.html')
     else:
@@ -291,6 +300,14 @@ def debit_card_payment(request, id):
 
 
 
+
+
+def allorders(request):
+    company = Company.objects.get(company_id=request.user)
+    products = Product.objects.filter(product_id=company)
+    
+    data = Order.objects.all()
+    return render(request, 'allorders.html', {'data': data, 'company': company})
 
 
 

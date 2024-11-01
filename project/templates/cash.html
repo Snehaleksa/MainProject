@@ -12,8 +12,13 @@
     {{data1.name}}
     {{data1.price}}
     {{data.quantity}}
-    <a href="{% url 'placeorder' %}">placeorder</a>
-
+    
+    <form action="" method="POST">
+        {% csrf_token %}
+    
+    
+        <button type="submit">Submit Payment</button>
+    </form>
     
 </body>
 </html>
