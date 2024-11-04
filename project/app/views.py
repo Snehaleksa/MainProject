@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import auth
 from .models import CustomUser,User,Company,Product,Cart,Order
-
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 # Create your views here.
 def index(request):
     return render(request,'index.html')
@@ -191,6 +191,7 @@ def addproduct(request):
 def viewproduct(request):
     company = Company.objects.get(company_id=request.user.id)
     products = Product.objects.filter(product_id=company)
+
     return render(request, 'viewproduct.html', {'products': products, 'company': company})
 
 
@@ -303,11 +304,10 @@ def debit_card_payment(request, id):
 
 
 def allorders(request):
-    company = Company.objects.get(company_id=request.user)
-    products = Product.objects.filter(product_id=company)
-    
-    data = Order.objects.all()
-    return render(request, 'allorders.html', {'data': data, 'company': company})
+    data=CustomUser.objects.get(id=request.user.id)
+    compani=Company.objects.get(company_id=data)
+    order=Order.objects.filter(cart_id__product_id__product_id=compani)
+    return render(request,'allorders.html',{'orders':order})
 
 
 
