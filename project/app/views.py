@@ -300,7 +300,7 @@ def buyproduct(request,id):
     
     return render(request,'buyproduct.html',{'data':data,'data1':data1,'totalprice':totalprice}) 
 
-
+#order
 def Cash_payment(request,id):
     data=Cart.objects.get(id=id)
     data1=data.product_id
