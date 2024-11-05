@@ -39,6 +39,8 @@ class Product(models.Model):
     image=models.FileField(upload_to='media')
     description=models.CharField(max_length=100)
     price=models.IntegerField()
+    catogory=models.CharField(null=True,blank=True,max_length=100)
+    
 
 
 

@@ -54,6 +54,8 @@ urlpatterns = [
     path('debit_card_payment/<int:id>', views.debit_card_payment, name='debit_card_payment'),
     path('logout',views.Logout,name='logout'),
     path('allorders',views.allorders,name='allorders'),
+    path('vieworder',views.vieworder,name='vieworder'),
+    path('viewallproduct',views.Viewallproduct,name='viewallproduct'),
 
 
     

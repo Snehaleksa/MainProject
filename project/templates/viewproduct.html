@@ -83,7 +83,25 @@
             <a href="{% url 'editproduct' id=product.id %}">Edit</a>
             <a href="{% url 'delete' id=product.id %}" class="delete">Delete</a>
         </div>
+        
         {% endfor %}
+    </div>
+    <div class="pagination mt-3">
+        <span class="step-links">
+          {% if products.has_previous %}
+            <a class="btn btn-dark" href="?page=1">&laquo; first</a>
+            <a class="btn btn-dark" href="?page={{ products.previous_page_number }}">previous</a>
+          {% endif %}
+
+          <span class="current">Page {{ products.number }} of {{ products.paginator.num_pages }}.</span>
+
+          {% if products.has_next %}
+            <a class="btn btn-dark" href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+          {% if products.has_next %}
+            <a class="btn btn-dark" href="?page={{ products.next_page_number }}">next</a>
+          {% endif %}
+        </span>
     </div>
     
 </body>

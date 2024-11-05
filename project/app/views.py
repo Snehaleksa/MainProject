@@ -72,6 +72,11 @@ def Companydetails(request):
     data=Company.objects.all()
     return render(request,'companydetails.html',{'data':data})
 
+def Viewallproduct(request):
+    data=Company.objects.all()
+    data1=Product.objects.all()
+    return render(request,'allproduct.html',{'data':data,'data1':data1})
+
  
 
 
@@ -191,8 +196,21 @@ def addproduct(request):
 def viewproduct(request):
     company = Company.objects.get(company_id=request.user.id)
     products = Product.objects.filter(product_id=company)
+    items_per_page=2
+    paginator=Paginator(products,items_per_page)
+    page=request.GET.get('page',1)
 
-    return render(request, 'viewproduct.html', {'products': products, 'company': company})
+    try:
+        products=paginator.page(page)
+    except PageNotAnInteger:
+        products=paginator.page(1)
+    except EmptyPage:
+        products=paginator.page(paginator.num_pages) 
+    context={
+        'products':products,
+        'company':company
+    }      
+    return render(request, 'viewproduct.html',context)
 
 
 
@@ -245,7 +263,20 @@ def addtocart(request,id):
 def viewcart(request):
     user = User.objects.get( user_id=request.user.id)
     data= Cart.objects.filter(user_id=user)
-    return render(request, 'viewcart.html', {'data': data})
+    items_per_page=2
+    paginator=Paginator(data,items_per_page)
+    page=request.GET.get('page',1)
+
+    try:
+        data=paginator.page(page)
+    except PageNotAnInteger:
+        data=paginator.page(1)
+    except EmptyPage:
+        data=paginator.page(paginator.num_pages) 
+    context={
+        'data':data
+    }  
+    return render(request, 'viewcart.html',context)
 
 def deletecart(request,id):
     data=Cart.objects.get(id=id)
@@ -309,6 +340,9 @@ def allorders(request):
     order=Order.objects.filter(cart_id__product_id__product_id=compani)
     return render(request,'allorders.html',{'orders':order})
 
-
+def vieworder(request):
+    user = User.objects.get(user_id=request.user.id) 
+    orders = Order.objects.filter(user_id=user)
+    return render(request, 'userorder.html', {'orders': orders})
 
 
