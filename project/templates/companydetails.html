@@ -21,6 +21,19 @@
             <td>{{i.address}}"</td>
             <td>{{i.contactnumber}}</td>
             <td>{{i.email}}</td>
+            <td>
+                <form action="{% url 'adminuseraccept' id=i.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    {% if i.company_id.status == 'pending' %}
+                        <button name="status" value="accepted">Accept</button>
+                        <button name="status" value="rejected">Reject</button>
+                    {% elif i.company_id.status == 'accepted' %}
+                        <button name="status" value="rejected">Reject</button>
+                    {% else %}
+                        <button name="status" value="accepted">Accept</button>
+                    {% endif %}
+                </form>
+            </td>
             
             
         </tr>

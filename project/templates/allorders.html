@@ -31,8 +31,20 @@
             <td>{{ i.cart_id.payment }}</td>
             <td>{{ i.paymentmethod }}</td>
             <td>{{i.status}}</td>
+            <td>
+                {% if i.status == 'order send' %}
+                    <a href="{% url 'confirmorder' id=i.id %}">Order Send</a>
+                {% elif i.status == 'orderconformed' %}
+                    <p>Order Conformed</p>
+                {% endif %}
+            </td>
+
         </tr>
         {% endfor %}
     </table>
+    
+       
+    
 </body>
 </html>
+

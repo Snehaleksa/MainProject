@@ -56,6 +56,8 @@ urlpatterns = [
     path('allorders',views.allorders,name='allorders'),
     path('vieworder',views.vieworder,name='vieworder'),
     path('viewallproduct',views.Viewallproduct,name='viewallproduct'),
+    path('confirmorder/<int:id>',views.confirmorder,name='confirmorder'),
+    
 
 
     

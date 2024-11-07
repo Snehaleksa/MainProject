@@ -185,8 +185,11 @@ def addproduct(request):
         image=request.FILES['image']
         description=request.POST['description']
         price=request.POST['price']
+        catogory=request.POST['catogory']
         
         data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price)
+        
+        data1.catogory =catogory 
         data1.save()
         return HttpResponse("success")
     else:
@@ -346,3 +349,12 @@ def vieworder(request):
     return render(request, 'userorder.html', {'orders': orders})
 
 
+
+
+
+def confirmorder( request,id):
+    order = Order.objects.get( id=id)
+    if order.status == 'order send':
+        order.status = 'order confirmed'
+        order.save()
+    return redirect(allorders)
