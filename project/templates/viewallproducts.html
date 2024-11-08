@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+       
+    </style>
+</head>
+<body>
+    <h1>All Products</h1>
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Price</th>
+            
+        </tr>
+        {% for i in data|slice:4 %}
+        <tr>
+            <td>{{ i.name }}</td>
+            <td><img src="{{i.image.url}}" alt="" height="50px" width="50px"></td>
+            <td>{{ i.description }}</td>
+            <td>{{ i.price }}</td>
+            
+        </tr>
+        
+       
+        {% endfor %}
+    </table>
+    <button><a href="{% url 'products' %}">Allproducts</a></button>
+</body>
+</html>

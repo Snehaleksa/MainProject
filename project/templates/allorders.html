@@ -34,8 +34,8 @@
             <td>
                 {% if i.status == 'order send' %}
                     <a href="{% url 'confirmorder' id=i.id %}">Order Send</a>
-                {% elif i.status == 'orderconformed' %}
-                    <p>Order Conformed</p>
+                {% elif i.status == 'orderconfirmed' %}
+                    <p>Order Confirmed</p>
                 {% endif %}
             </td>
 

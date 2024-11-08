@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import auth
-from .models import CustomUser,User,Company,Product,Cart,Order
+from .models import CustomUser,User,Company,Product,Cart,Order,Whishlist
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 # Create your views here.
 def index(request):
@@ -358,3 +358,30 @@ def confirmorder( request,id):
         order.status = 'order confirmed'
         order.save()
     return redirect(allorders)
+
+
+#Whislist
+def whishlist(request,id):
+    product = Product.objects.get(id=id)
+    user=User.objects.get( user_id=request.user.id)
+    data=Whishlist.objects.filter(product_id=product, user_id=user)
+    if data.exists():
+       data.delete()
+       return HttpResponse("removed")
+    else:
+        data=Whishlist.objects.create(product_id=product, user_id=user)   
+    return HttpResponse("added to whish list") 
+
+def viewwhishlist(request):
+    user = User.objects.get( user_id=request.user.id)
+    data= Whishlist.objects.filter(user_id=user)
+    return render(request,'whishlist.html',{'data':data})
+
+
+def viewproducts(request):
+    data=Product.objects.all()
+    return render(request,'viewallproducts.html',{'data':data})
+
+def products(request):
+    data=Product.objects.all()
+    return render(request,'products.html',{'data':data})

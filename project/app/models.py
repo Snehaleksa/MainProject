@@ -56,6 +56,7 @@ class Order(models.Model):
     payment=models.IntegerField()
     paymentmethod=models.CharField(max_length=100)
     status=models.CharField(null=True,blank=True,max_length=100)
-    
 
-        
+class Whishlist(models.Model):
+    product_id=models.ForeignKey(Product,on_delete=models.CASCADE)
+    user_id=models.ForeignKey(User,on_delete=models.CASCADE)        

@@ -57,6 +57,10 @@ urlpatterns = [
     path('vieworder',views.vieworder,name='vieworder'),
     path('viewallproduct',views.Viewallproduct,name='viewallproduct'),
     path('confirmorder/<int:id>',views.confirmorder,name='confirmorder'),
+    path('addtowhishlist/<int:id>',views.whishlist,name='addtowhishlist'),
+    path('viewwhishlist',views.viewwhishlist,name='viewwhishlist'),
+    path('viewproducts',views.viewproducts,name='viewproducts'),
+    path('products',views.products,name='products'),
     
 
 

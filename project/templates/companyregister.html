@@ -1,26 +1,134 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Company Register</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: wheat;
+            margin: 0;
+            height: 100vh;
+        }
+
+        .register-container {
+            display: flex;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+            max-height: 500px;
+        }
+
+        .image-section {
+            background-color: rgb(148, 189, 250);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50%;
+        }
+
+        .image-section img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .form-section {
+            padding: 10px;
+            width: 50%;
+        }
+
+        .form-section h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 1px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid white;
+            border-radius: 4px;
+        }
+
+        .form-group input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            
+        }
+
+        
+    </style>
 </head>
 <body>
-    <form action="companyregister" method="post">
-       {% csrf_token %}
-       <label for="">Name</label>
-       <input type="text" name="name" required><br><br>
-       <label for="">Username</label>
-       <input type="text" name="username" required><br><br>
-       <label for="">Password</label>
-       <input type="text" name="password" required><br><br>
-       <label for="">Address</label>
-       <input type="text" name="address" required><br><br>
-       <label for="">Contactnumber</label>
-       <input type="text" name="contactnumber" required><br><br>
-       <label for="">Email</label>
-       <input type="text" name="email" required><br><br>
-       <input type="submit">
-    </form>
+    <div class="register-container">
+        
+        <div class="image-section">
+            <img src= "{% static 'images/saving-img.png' %}" alt="Shopping Girl">
+        </div>
+
+        
+        <div class="form-section">
+            <h2>Register</h2>
+            <form action="companyregister" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text"  name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="text" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text"  name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="contactnumber">Contact Number</label>
+                    <input type="text"  name="contactnumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text"  name="email" required>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Register">
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

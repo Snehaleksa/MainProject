@@ -109,6 +109,7 @@
             <p class="price">{{ i.price }}</p>
             <a href="{% url 'viewproductdetails' id=i.id %}">View</a>
             <a href="{% url 'addtocart' id=i.id %}" class="add-to-cart">Add to Cart</a>
+            <a href="{% url 'addtowhishlist' id=i.id %}">Whishlist</a>
             
         </div>
         {% endfor %}
