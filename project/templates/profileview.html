@@ -1,28 +1,88 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            
+            background-image: url("{% static  'images/slider-img.png' %}");
+            background-repeat: no-repeat;
+            background-color: rgb(228, 77, 102);
+            margin: 0;
+            height: 100vh;
+        }
+        .profile-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            width: 350px;
+            color: rgb(53, 53, 53);
+            text-align: center;
+            margin-left: 500px;
+            margin-top: 20px;
+            
+            
+        }
+        .profile-card img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 15px;
+        }
+        .profile-card h2 {
+            margin: 10px 0;
+            font-size: 24px;
+            color: black;
+        }
+        .profile-details {
+            text-align: left;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .profile-details p {
+            margin: 20px 0;
+            
+        }
+        
+        .edit-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 8px 16px;
+            color:  white;
+            background-color: red;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Address</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th></th>
-        </tr>
-        <tr>
-            <td>{{data1.name}}</td>
-            <td><img src="{{data1.image.url}}" alt="" height="50px" width="50px"></td>
-            <td>{{data1.address}}</td>
-            <td>{{data1.email}}</td>
-            <td>{{data1.phone}}</td>
-            <td><a href="{% url 'edit' id=data1.id %}">Edit</a></td>
-        </tr>
-    </table>
+    <div class="profile-card">
+        <img src="{{data1.image.url}}" alt="Profile Image">
+        <h2>{{data1.name}}</h2>
+        <div class="profile-details">
+            <div>
+                <h4>Email:</h4>
+                <p>{{data1.email}}</p>
+                <h4>Username:</h4>
+                <p>{{data1.user_id.username}}</p>
+            </div>
+            <div>
+                <h4>Address: </h4>
+                <p>{{data1.address}}</p>
+                <h4>Phone no: </h4>
+                <p>{{data1.phone}}</p>
+            </div>
+        </div>
+    
+        <a href="{% url 'edit' id=data1.id %}" class="edit-button">Edit</a>
+    </div>
 </body>
 </html>

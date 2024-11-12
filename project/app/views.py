@@ -100,7 +100,9 @@ def Register(request):
     
 
 def Userhome(request):
-    return render(request,'userhome.html')    
+    data=CustomUser.objects.get(id=request.user.id)
+    data1=User.objects.get(user_id=data)
+    return render(request,'userhome.html',{'data1':data1})    
 
     
 
