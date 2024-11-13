@@ -128,8 +128,11 @@ def edit(request,id):
 
 
 def Userproductview(request):
+    id=CustomUser.objects.get(id=request.user.id)
+    user = User.objects.get( user_id=id)
     data=Product.objects.all()
-    return render(request,'userproductview.html',{'data':data})
+    wishlist=Whishlist.objects.filter(user_id=user)
+    return render(request,'userproductview.html',{'data':data,'wishlist':wishlist})
 
 def searchproduct(request):
     if request.method=='POST':
@@ -365,18 +368,28 @@ def confirmorder( request,id):
 #Whislist
 def whishlist(request,id):
     product = Product.objects.get(id=id)
-    user=User.objects.get( user_id=request.user.id)
-    data=Whishlist.objects.filter(product_id=product, user_id=user)
-    if data.exists():
-       data.delete()
-       return HttpResponse("removed")
+    user = User.objects.get(user_id=request.user.id)
+    wishlist = Whishlist.objects.filter(product_id=product, user_id=user)
+    if wishlist.exists():
+       wishlist.delete()
     else:
-        data=Whishlist.objects.create(product_id=product, user_id=user)   
-    return HttpResponse("added to whish list") 
+        Whishlist.objects.create(product_id=product, user_id=user)
+    return redirect(Userproductview)
 
-def viewwhishlist(request):
-    user = User.objects.get( user_id=request.user.id)
-    data= Whishlist.objects.filter(user_id=user)
+   
+
+def removefromwhishlist(request, id):
+    
+    product = Product.objects.get( id=id)
+    user = User.objects.get(user_id=request.user.id)
+    Whishlist.objects.filter(product_id=product, user_id=user).delete()
+    
+    return redirect(Userproductview)
+
+
+def viewwishlist(request):
+    user=User.objects.get(user_id=request.user.id)
+    data=Whishlist.objects.filter(user_id=user)
     return render(request,'whishlist.html',{'data':data})
 
 
