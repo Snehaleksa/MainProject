@@ -1,14 +1,51 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: turquoise;
+            color: white;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background-color: white;
+        }
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        
+       
+
+        
+        
+    </style>
 </head>
 <body>
     <nav>
         <a href="{% url 'companyprofile' %}">ProfileView</a>
-        <a href="{% url 'allorders' %}">Vieworder</a>
+        <a href="{% url 'allorders' %}">View Order</a>
+        <a href="{% url 'logout' %}">Logout</a>
     </nav>
+
+
+    
 </body>
 </html>

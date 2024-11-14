@@ -4,15 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        
+        body {
+            background-color: turquoise;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: pink;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: white; 
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            text-align: right;
+        }
+
+        nav a {
+            color: black; 
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 15px;
+        }
+
+        
+
+        
+        .details {
+            padding: 20px;
+            text-align: left;
+        }
+
+        .details h2 {
+            color: rgb(46, 45, 45);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .details p {
+            color: rgb(46,45,45);
+            font-size: 18px;
+            margin: 5px 0;
+        }
+
+        .main {
+            margin-top: 20px;
+        }
+
+        .main a {
+            text-decoration: none;
+            padding: 10px 15px;
+            color: black;
+            background-color:  white; 
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 5px;
+            display: inline-block;
+        }
+
+        
+    </style>
 </head>
 <body>
-    {{data1.name}}
-    {{data1.address}}
-    {{data1.contactnumber}}
-    {{data1.email}}
-    <a href="{% url 'companyedit' id=data1.id %}">Edit</a>
+    <div class="container">
+        
+        <nav>
+           
+            <a href="logout">logout</a>
+        </nav>
 
-    <a href="{% url 'addproduct' %}">Add Product</a>
-    <a href="{% url 'viewproduct' %}">View Product</a>
+        
+        <div class="details">
+            <h2>Company Information</h2>
+            <p><strong>Name:</strong> {{ data1.name }}</p>
+            <p><strong>Address:</strong> {{ data1.address }}</p>
+            <p><strong>Contact Number:</strong> {{ data1.contactnumber }}</p>
+            <p><strong>Email:</strong> {{ data1.email }}</p>
+        </div>
+
+        
+        <div class="main">
+            <a href="{% url 'companyedit' id=data1.id %}">Edit</a>
+            <a href="{% url 'addproduct' %}">Add Product</a>
+            <a href="{% url 'viewproduct' %}">View Product</a>
+        </div>
+    </div>
 </body>
 </html>

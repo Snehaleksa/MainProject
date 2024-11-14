@@ -4,21 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+    
+        }
+
+    
+        body {
+            background-color: turquoise; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 600px;
+        }
+
+        
+        .form-container {
+            background-color:  pink; 
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            color: rgb(58, 57, 57);
+            width: 100%;
+        }
+
+        input[type="text"] {
+            width: 50%; 
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: white;
+            color: black;
+            font-weight: bold;
+            border: none;
+            padding: 10px;
+        }
+
+        
+    </style>
 </head>
 <body>
-    <form action="{% url 'companyedit' id=data.id  %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="">Name</label>
-        <input type="text" name="name" value="{{data.name}}" required><br><br>
-        <label for="">Address</label>
-        <input type="text" name="address" value="{{data.address}}" required><br><br>
-        <label for="">Contactnumber</label>
-        <input type="text" name="contactnumber" value="{{data.contactnumber}}" required><br><br>
-        <label for="">Email</label>
-        <input type="text" name="email" value="{{data.email}}" required><br><br>
+    <div class="form-container">
+        <form action="{% url 'companyedit' id=data.id  %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="name">Name</label>
+            <input type="text" name="name" value="{{data.name}}" required>
 
-        <input type="submit" value="Update">
-
-    </form>
+            <label for="email">Email</label>
+            <input type="text" name="email" value="{{data.email}}" required>
+            <label for="address">Address</label>
+            <input type="text"  name="address" value="{{data.address}}" required>
+            <label for="contactnumber">Contact Number</label>
+            <input type="text"  name="contactnumber" value="{{data.contactnumber}}" required>
+            <input type="submit" value="Update">
+        </form>
+    </div>
 </body>
 </html>
