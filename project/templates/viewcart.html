@@ -11,8 +11,7 @@
             box-sizing: border-box;
         }
         body {
-            font-family: Arial, sans-serif;
-            background-color:  whitesmoke;
+            background-color:  turquoise;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,8 +48,59 @@
         }
         .card p {
             color: rgb(82, 79, 79);
+          
             margin-bottom: 15px;
         }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .btn-delete {
+            flex: 1;
+            text-decoration: none;
+            color: white;
+            background-color: blue;
+            padding: 8px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 14px;
+            
+        }
+
+        .btn-delete:hover {
+            background-color: rgb(198, 198, 235);
+        }
+
+        .btn-edit {
+            flex: 1;
+            text-decoration: none;
+            color: white;
+            background-color: red;
+            padding: 8px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 14px;
+        
+        }
+
+        .btn-edit:hover {
+            background-color: green;
+        }
+        .btn-buy {
+            flex: 1;
+            text-decoration: none;
+            color: white;
+            background-color: green;
+            padding: 8px;
+            text-align: center;
+            border-radius: 5px;
+            font-size: 14px;
+            
+        }
+
+
     </style>
 </head>
 <body>
@@ -61,9 +111,11 @@
             <p>{{ i.product_id.description }}</p>
             <img class="image" src="{{ i.product_id.image.url }}" alt="" height="100px" width="100px">
             <h2>{{i.product_id.price}}</h2>
-            <a href="{% url 'deletecart' id=i.id %}" class="delete">Delete</a>
-            <a href="{% url 'editcart' id=i.id %}">Edit</a>
-            <a href="{% url 'buyproduct' id=i.id %}">Buy</a>
+            <div class="buttons">
+               <a href="{% url 'deletecart' id=i.id %}" class="btn-delete">Delete</a>
+               <a href="{% url 'editcart' id=i.id %}" class="btn-edit">Edit</a>
+               <a href="{% url 'buyproduct' id=i.id %}" class="btn-buy">Buy</a>
+            </div>   
         </div>
         {% endfor %}
     </div>

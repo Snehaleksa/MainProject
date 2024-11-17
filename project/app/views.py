@@ -4,7 +4,74 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import auth
 from .models import CustomUser,User,Company,Product,Cart,Order,Whishlist
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+import random
+from django.core.mail import send_mail
+from django.contrib import messages
 # Create your views here.
+
+def send_otp(email):
+    otp = random.randint(100000,999999)
+    send_mail(
+        'Your OTP Code',
+        f'Your OTP code is: {otp}',
+        'snehaleksa2016@gmail.com',
+        [email],
+        fail_silently=False,
+    )
+    return otp
+
+def password_reset_request(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        try:
+            user = User.objects.get(email=email)
+            otp = send_otp(email)
+
+            context = {
+                        "email": email,
+                        "otp": otp,
+            }
+            return render(request,'verify_otp.html',context)
+        
+        except User.DoesNotExist:
+            messages.error(request,'Email address not found.')
+    else:
+        return render(request,'password_reset.html')
+    return render(request,'password_reset.html') 
+
+def verify_otp(request):
+    if request.method == 'POST':
+        email =request.POST.get('email')
+        otpold = request.POST.get('otpold')
+        otp = request.POST.get('otp')
+
+        if otpold==otp :
+            context = {
+                'otp' : otp,
+                'email': email
+            }
+            return render(request,'set_new_password.html',context)
+        else:
+            messages.error(request,"Invalid OTP")
+    return render(request,'verify_otp.html') 
+
+def set_new_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        if new_password==confirm_password:
+            try:
+                data = User.objects.get(email=email)
+                user=CustomUser.objects.get(id=data.user_id)
+                user.set_password(new_password)
+                user.save()
+                messages.success(request,'Password has been reset successfully')
+                return redirect(Login)
+            except User.DoesNotExist:
+                messages.error(request,'Password doesnot match')
+        return render(request,'set_new_password.html',{'email':email})               
+    return render(request,'set_new_password.html',{'email':email})
 def index(request):
     return render(request,'index.html')
 def Login(request):
@@ -102,7 +169,8 @@ def Register(request):
 def Userhome(request):
     data=CustomUser.objects.get(id=request.user.id)
     data1=User.objects.get(user_id=data)
-    return render(request,'userhome.html',{'data1':data1})    
+    data2=Product.objects.all()
+    return render(request,'userhome.html',{'data1':data1,'data2':data2})    
 
     
 
@@ -127,11 +195,13 @@ def edit(request,id):
 
 
 
+
+
 def Userproductview(request):
     id=CustomUser.objects.get(id=request.user.id)
     user = User.objects.get( user_id=id)
     data=Product.objects.all()
-    wishlist=Whishlist.objects.filter(user_id=user)
+    wishlist=Whishlist.objects.filter(user_id=user).values_list('product_id',flat=True)
     return render(request,'userproductview.html',{'data':data,'wishlist':wishlist})
 
 def searchproduct(request):
@@ -244,6 +314,11 @@ def delete(request,id):
     return redirect(viewproduct)    
 
 
+def get_product(request):
+    data=Product.objects.all()
+    return render(request,'userhome.html',{'data':data})    
+
+
 
 
 def viewproductdetails(request, id):
@@ -257,11 +332,11 @@ def addtocart(request,id):
     product = Product.objects.get( id=id)
     user=User.objects.get( user_id=request.user.id)
     if Cart.objects.filter(product_id=product, user_id=user).exists():
-        return HttpResponse("Product already exist")
+        return redirect(Userproductview)
     else:
        cart_item=Cart.objects.create(product_id=product, user_id=user)
        cart_item.save()
-       return HttpResponse("success") 
+       return redirect(Userproductview) 
 
  
 

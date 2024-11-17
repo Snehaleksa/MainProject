@@ -62,6 +62,10 @@ urlpatterns = [
     path('products',views.products,name='products'),
     path('vieww',views.viewwishlist,name='vieww'),
     path('removefromwishlist/<int:id>',views.removefromwhishlist,name='removefromwishlist'),
+    path('password_reset',views.password_reset_request,name='password_reset'),
+    path('verify_otp',views.verify_otp,name='verify_otp'),
+    path('set_new_password',views.set_new_password,name='set_new_password'),
+    
     
 
 
