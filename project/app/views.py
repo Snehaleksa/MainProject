@@ -392,9 +392,9 @@ def Cash_payment(request,id):
     if request.method=='POST':
         order=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
         order.save()
-        return render(request,'order.html',{'data':data,'data1':data1,'user':user})
+        return render(request,'order.html',{'data':data,'data1':data1,'user':user,'total_payment':total_payment})
     else:
-        return render(request,'cash.html',{'data':data,'user':user})
+        return render(request,'cash.html',{'data':data,'user':user,'total_payment':total_payment})
 
 
 

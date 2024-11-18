@@ -63,6 +63,7 @@
             <p>Name:{{ data.product_id.name }}</p>
             <p>Price: {{ data.product_id.price }}</p>
             <p>Quantity: {{ data.quantity }}</p>
+            <p>Total Payment: {{ total_payment }}</p>
         </div>
         <form action="" method="POST">
             {% csrf_token %}
