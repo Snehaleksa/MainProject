@@ -98,11 +98,14 @@
             <p>{{ i.cart_id.product_id.name  }}</p>
             <p>{{i.cart_id.product_id.price}}</p>
             <p>{{i.cart_id.quantity}}</p>
+            
             {% if i.status == 'order send' %}
+            
             <p style="color: red;">{{i.status}}</p>
             {% else %}
             <p style="color: green;">{{i.status}}</p>
             {% endif %}
+           <a href="{% url 'deleteorder' id=i.id %}">Delete</a>
             
 
         </div>

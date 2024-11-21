@@ -176,7 +176,7 @@
             </a>
         </nav>
     </div>
-
+    {% block content %}
     <div style="background-color: turquoise;">
       <div class="search-container">
           <form action="search" method="post">
@@ -187,7 +187,7 @@
       </div>
 
     
-      {% block content %}
+      
       <div class="container">
           {% for i in data %}
           <div class="card">

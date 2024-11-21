@@ -430,6 +430,12 @@ def vieworder(request):
     return render(request, 'userorder.html', {'orders': orders})
 
 
+def deleteorders(request, id):
+    
+    data = Order.objects.get(id=id)
+    data.delete()
+    return redirect('vieworder')
+    
 
 
 
