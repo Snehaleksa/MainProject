@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 {% load static %}
 <html>
@@ -31,9 +32,70 @@
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   <!-- responsive style -->
   <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  <style>
+    .container {
+    padding: 10px;
+    text-align: center;
+    }
+
+    .container h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    font-weight: bold;
+  }
+
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    
+  }
+
+
+  .product-card {
+    border: 1px solid rgb(221, 213, 213);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+    text-align: center;
+    
+    position: relative;
+  }
+
+  .product-card img {
+    max-width: 50%;
+    height: 50%;
+    border-radius: 10px;
+  }
+
+  .product-card h3 {
+    font-size: 20px;
+    margin: 10px 0;
+  }
+
+  .product-card p {
+    color: gray;
+    font-size: 16px;
+  }
+
+
+
+  .new-badge {
+    background-color: whitesmoke;
+    color: black;
+    font-size: 12px;
+    padding: 5px 10px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 15px;
+  }
+
+  </style>
 </head>
 
 <body>
+  {% block content %}
   <div class="hero_area">
     <!-- header section strats -->
     <header class="header_section">
@@ -92,7 +154,7 @@
     </header>
     <!-- end header section -->
     <!-- slider section -->
-
+    {% endblock %}
     <section class="slider_section">
       <div class="slider_container">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -190,219 +252,27 @@
 
     <!-- end slider section -->
   </div>
+  
   <!-- end hero area -->
 
   <!-- shop section -->
 
   <section class="shop_section layout_padding" id="product">
     <div class="container">
-      <div class="heading_container heading_center">
-        <h2>
-          Latest Products
-        </h2>
-      </div>
-      <div class="row">
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p1.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Ring
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $200
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
+      <div class="container">
+        <h2>Latest Products</h2>
+        <div class="product-grid">
+          {% for i in products|slice:4 %}
+            <div class="product-card">
+                <div class="new-badge"><a href="login">New</a></div>
+                <img src="{{ i.image.url }}" alt="{{ i.name }}">
+                <h3>{{ i.name }}</h3>
+                <p>Price: {{ i.price }}</p>
+            </div>
+            {% endfor %}
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p2.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Watch
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $300
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p3.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Teddy Bear
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $110
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p4.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Flower Bouquet
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $45
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p5.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Teddy Bear
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $95
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p6.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Flower Bouquet
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $70
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p7.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Watch
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $400
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static  'images/p8.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Ring
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $450
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
+    </div>
+    
       <div class="btn-box">
         <a href="{% url 'viewproducts' %}">
           View All Products

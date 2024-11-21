@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
 {% load static %}
 <html lang="en">
 <head>
@@ -12,12 +13,7 @@
             padding: 0;
         }
 
-        body{
-           
-            background-repeat: no-repeat;
-            background-color: turquoise;
-        }
-
+       
         
         header {
             background-color: pink;
@@ -29,7 +25,7 @@
 
         .nav-container {
             width: 100%;
-            height: 48px;
+            height: 30px;
             
             display: flex;
             align-items: center;
@@ -45,9 +41,8 @@
         }
 
         .profile-pic {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
+            width: 30px;
+            height: 30px;
             margin-right: 15px;
         }
 
@@ -57,18 +52,16 @@
 <body>
     
         <div class="nav-container">
-            <a href="{% url 'profileview' %}"><img src="{{data1.image.url}}" alt="" class="profile-pic"></a>
+            <a href="{% url 'profileview' %}"><img src="{% static 'images/favicon.png' %}" alt="" class="profile-pic"></a>
             <nav>
                 
                 <a href="{% url 'userviewproduct' %}">View Product</a>
                 <a href="{% url 'viewcart' %}" class="view-cart">View Cart</a>
                 <a href="{% url 'vieworder' %}">View Order</a>
-                <a href="{% url 'profileview' %}"><img src="{% static 'img/profileview.jpg' %}" alt="" height="30px" width="30px"></a>
+                <a  href="{% url 'profileview' %}"><img src="{% static 'img/profileview.jpg' %}" alt="" height="25px" width="25px"></a>
                 <a href="{% url 'logout' %}"><img  src="{% static 'img/logout.png' %}" alt="" height="20px" width="20px" ></a>
             </nav>
         </div>
-       <div><img src="{% static  'images/slider-img.png' %}" alt=""></div>
 
     
-</body>
-</html>
+{% endblock %}

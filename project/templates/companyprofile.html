@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,14 +14,7 @@
             
         }
 
-        
-        body {
-            background-color: turquoise;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+
 
         
         .container {
@@ -29,17 +23,19 @@
             background-color: pink;
             border-radius: 8px;
             padding: 20px;
+            margin: 0 auto;
+            margin-top: 60px;
             text-align: center;
         }
 
-        nav {
+        .nav1 {
             background-color: white; 
             padding: 15px;
             border-radius: 8px 8px 0 0;
             text-align: right;
         }
 
-        nav a {
+        .nav1 a {
             color: black; 
             text-decoration: none;
             font-weight: bold;
@@ -70,6 +66,7 @@
             margin-top: 20px;
         }
 
+
         .main a {
             text-decoration: none;
             padding: 10px 15px;
@@ -81,13 +78,55 @@
             display: inline-block;
         }
 
+            .nav-container {
+            width: 100%;
+            height: 30px;
+            
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: white;
+        }
+
+        .nav-container nav a {
+            color: black;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .profile-pic {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+        }
+
+
+        
+       
+
+        
         
     </style>
 </head>
-<body>
+<body style="background-color: turquoise;">
+    <div class="nav-container">
+        <a href="{% url 'profileview' %}"><img src="{% static 'images/favicon.png' %}" alt="" class="profile-pic"></a>
+      <nav>
+
+        <a href="{% url 'companyprofile' %}">ProfileView</a>
+        <a href="{% url 'allorders' %}">View Order</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      </nav>
+    </div>
+
+    
+
+
+
     <div class="container">
         
-        <nav>
+        <nav class="nav1">
            
             <a href="logout">logout</a>
         </nav>

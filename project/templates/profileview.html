@@ -1,10 +1,7 @@
-<!DOCTYPE html>
+{% extends 'userproductview.html' %}
+
+{% block content %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <style>
     
         * {
@@ -14,15 +11,7 @@
         }
 
         
-        body {
-        
-            background-color: turquoise;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 20px;
-        }
+
 
         
         .profile-card {
@@ -31,6 +20,8 @@
             width: 400px;
             text-align: center;
             padding: 30px;
+            margin: 0 auto;
+            margin-top: 50px;
             
         }
 
@@ -91,7 +82,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: turquoise;">
     <div class="profile-card">
         
         <img src="{{ data1.image.url }}" alt="Profile Image">
@@ -122,5 +113,6 @@
         
         <a class="edit-button" href="{% url 'edit' id=data1.id %}" >Edit Profile</a>
     </div>
+{% endblock %}    
 </body>
 </html>

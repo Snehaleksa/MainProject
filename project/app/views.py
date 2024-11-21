@@ -63,7 +63,7 @@ def set_new_password(request):
         if new_password==confirm_password:
             try:
                 data = User.objects.get(email=email)
-                user=CustomUser.objects.get(id=data.user_id)
+                user=CustomUser.objects.get(id=data.user_id.id)
                 user.set_password(new_password)
                 user.save()
                 messages.success(request,'Password has been reset successfully')
@@ -73,7 +73,8 @@ def set_new_password(request):
         return render(request,'set_new_password.html',{'email':email})               
     return render(request,'set_new_password.html',{'email':email})
 def index(request):
-    return render(request,'index.html')
+    products=Product.objects.all()
+    return render(request,'index.html',{'products':products})
 def Login(request):
     if request.method=='POST':
         username=request.POST['username']
