@@ -1,6 +1,15 @@
-{% extends 'index.html' %}
+<!DOCTYPE html>
 {% load static %}
-{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    
+
+
+
     <style>
         
         * {
@@ -37,7 +46,96 @@
         }
 
 
-        
+        .banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: turquoise;
+            padding: 40px 20px;
+            min-height: 300px;
+        }
+
+        .banner-text {
+            flex: 1;
+            color: white;
+            padding: 20px;
+        }
+
+        .banner-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .banner-text p {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .banner-text .btn {
+            padding: 10px 20px;
+            background-color: #ff5f7e;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .banner-image {
+            flex: 1;
+            text-align: center;
+        }
+
+        .banner-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+        .container {
+           padding: 50px;
+           text-align: center;
+        }
+
+        .container h2 {
+           font-size: 32px;
+           margin-bottom: 20px;
+           font-weight: bold;
+        }
+
+       .product-grid {
+           display: flex;
+           flex-wrap: wrap;
+           gap: 50px;
+    
+        }
+
+
+      .product-card {
+          border: 1px solid rgb(221, 213, 213);
+          border-radius: 10px;
+          padding: 10px;
+          background-color: white;
+          text-align: center;
+    
+          position: relative;
+      }
+
+     .product-card img {
+        max-width: 50%;
+        height: 50%;
+        border-radius: 10px;
+     }
+
+     .product-card h3 {
+       font-size: 20px;
+       margin: 10px 0;
+    }
+
+    .product-card p {
+      color: gray;
+      font-size: 16px;
+    }   
        
 
         
@@ -55,8 +153,32 @@
         <a href="{% url 'logout' %}">Logout</a>
       </nav>
     </div>
+    <div class="banner">
+        <div class="banner-text">
+            <h1>Welcome To Our <br> Gift Shop</h1>
+            <p>
+                Discover the perfect gifts for your loved ones. From unique items to personalized presents, our shop has everything you need to make any occasion special.
+            </p>
+            
+        </div>
+        <div class="banner-image">
+            <img src="{% static 'images/saving-img.png' %}" alt="Gift Shop">
+        </div>
+    </div>
+    <div class="container">
+        <h2>Latest Products</h2>
+        <div class="product-grid">
+          {% for i in data2|slice:4 %}
+            <div class="product-card">
+                
+                <img src="{{ i.image.url }}" alt="{{ i.name }}">
+                <h3>{{ i.name }}</h3>
+                <p>Price: {{ i.price }}</p>
+            </div>
+            {% endfor %}
+        </div>
 
 
-{% endblock %}    
+    
 </body>
 </html>

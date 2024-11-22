@@ -4,25 +4,96 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+            
+            background-color: turquoise;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgb(46, 45, 45);
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: grey;
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgb(248, 240, 240);
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        
+
+        .form-container input[type="submit"] {
+            background-color: green;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: green;
+        }
+
+        .form-container .file-upload {
+            border: 1px solid whitesmoke;
+            padding: 10px;
+            text-align: center;
+            color: grey;
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <form action="addproduct" method="post" enctype="multipart/form-data">
-       {% csrf_token %}
-       <label for="">Name</label>
-       <input type="text" name="name" required><br><br>
-       <label for="">Image</label>
-       <input type="file" name="image" required><br><br>
-       <label for="">Description</label>
-       <input type="text" name="description" required><br><br>
-       <select name="catogory" id="">
-        <option value="shoe">shoe</option>
-        <option value="bangles">bangles</option>
-        <option value="lipstick">lipstick</option>
-       </select>
-       <label for="">Price</label>
-       <input type="text" name="price" required><br><br>
-       
-       <input type="submit">
-    </form>
+    <div class="form-container">
+        <h2>Add Product</h2>
+        <form action="addproduct" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="name">Name</label>
+            <input type="text"  name="name"  required>
+
+            <label for="image">Image</label>
+            <input type="file"  name="image" class="file-upload" required>
+
+            <label for="description">Description</label>
+            <input type="text"  name="description"  required>
+
+            
+
+            <label for="price">Price</label>
+            <input type="text"  name="price" required>
+
+            <input type="submit" value="Add Product">
+        </form>
+    </div>
 </body>
 </html>

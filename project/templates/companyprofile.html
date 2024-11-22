@@ -113,10 +113,10 @@
     <div class="nav-container">
         <a href="{% url 'profileview' %}"><img src="{% static 'images/favicon.png' %}" alt="" class="profile-pic"></a>
       <nav>
-
+        <a href="{% url 'companyhome' %}"><img src="{% static 'img/companihome.jpg' %}" alt="" height="25px" width="25px"></a>
         <a href="{% url 'companyprofile' %}">ProfileView</a>
         <a href="{% url 'allorders' %}">View Order</a>
-        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'logout' %}"><img src="{%  static 'img/logout.png' %}" alt="" height="25px" width="25px"></a>
       </nav>
     </div>
 
@@ -128,7 +128,7 @@
         
         <nav class="nav1">
            
-            <a href="logout">logout</a>
+            <a href="{% url 'companyedit' id=data1.id %}">Edit</a>
         </nav>
 
         
@@ -142,7 +142,7 @@
 
         
         <div class="main">
-            <a href="{% url 'companyedit' id=data1.id %}">Edit</a>
+            
             <a href="{% url 'addproduct' %}">Add Product</a>
             <a href="{% url 'viewproduct' %}">View Product</a>
         </div>

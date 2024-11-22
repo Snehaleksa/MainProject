@@ -3,12 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Document</title>
     <style>
-        table,tr,td,th{
-            border: 1px solid black;
-            border-collapse: collapse;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
         }
+
+        body {
+            background-color: turquoise;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgb(51, 48, 48);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: white;
+            
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+        }
+
+        th {
+            background-color: blue;
+            color: white;
+            font-weight: bold;
+        }
+
+        
+
+       
+
+        td a {
+            text-decoration: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: green;
+            font-size: 0.9rem;
+        }
+
+        
+        td p {
+            margin: 0;
+            font-weight: bold;
+            color: gray;
+        }
+
+
+        
     </style>
 </head>
 <body>
@@ -20,6 +75,7 @@
             <th>Quantity</th>
             <th>Total Payment</th>
             <th>PaymentMethod</th>
+            <th>Status</th>
         </tr>
         
         {% for i in orders %}
