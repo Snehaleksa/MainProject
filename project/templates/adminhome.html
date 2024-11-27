@@ -24,7 +24,7 @@
             <td>{{ i.address }}</td>
             <td>
                 
-                <form action="{% url 'adminuseraccept' id=i.id %}" method="post" style="display:inline;">
+                 <form action="{% url 'adminuseraccept' id=i.id %}" method="post" style="display:inline;">
                     {% csrf_token %}
                     {% if i.company_id.status == 'pending' %}
                         <button name="status" value="accepted">Accept</button>

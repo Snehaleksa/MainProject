@@ -1,3 +1,5 @@
+{% extends 'companyhome.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,104 +7,181 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        body {
-            background-color: whitesmoke;
-            display: flex;
-            flex-direction: column;
-            
-            
-    
+
+       
+
+        
+
+        a {
+            text-decoration: none;
         }
+
+        
         .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
-            padding: 10px;
+            gap: 20px;
         }
+
+    
         .card {
             background-color: white;
+            border: 1px solid rgb(189, 188, 188);
             border-radius: 8px;
-            height: 300px;
-            max-width: 320px;
-            width: 100%;
-            padding: 10px;
+            width: 300px;
             text-align: center;
+            padding: 20px;
         }
-    
-        .image {
+
         
+
+        .card img {
+            max-width: 100%;
+            height: 150px;
             border-radius: 8px;
             margin-bottom: 15px;
         }
-        h2 {
+
+        .card h2 {
+            font-size: 20px;
             margin-bottom: 10px;
+            color: rgb(39, 39, 39);
         }
-        p {
-            color: rgb(122, 119, 119);
-            margin-bottom: 10px;
+
+        .card p {
+            font-size: 14px;
+            color: gray;
+            margin-bottom: 15px;
         }
-        .price {
-            color: rgb(65, 177, 65);
+
+        .card .price {
+            color: green;
+            font-size: 16px;
             font-weight: bold;
             margin-bottom: 20px;
         }
+
         .card a {
-            text-decoration: none;
-            color: white;
-            background-color: rgb(128, 128, 243);
+            display: inline-block;
             padding: 10px 20px;
             border-radius: 5px;
-            margin-top: 20px;
-            
+            font-size: 14px;
+            font-weight: bold;
+            margin: 5px 5px 0 0;
             
         }
-        
-        .card .delete {
-            background-color: rgb(243, 111, 111);
-            margin-left: 10px;
 
-        }
         
+
+        
+
+        .card a:first-child:hover {
+            background-color: blue;
+        }
+
+        .card a.delete {
+            background-color: red;
+            color: white;
+        }
+
+        
+
+        
+        .add-product {
+            display: inline-block;
+            margin: 0 auto ;
+            margin-left: 10px;
+            margin-top: 20px;
+            text-align: center;
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        
+
+        
+        .pagination {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .pagination .step-links a {
+            display: inline-block;
+            margin: 0 5px;
+            padding: 10px 15px;
+            color: white;
+            background-color: blue;
+            border-radius: 5px;
+            text-decoration: none;
+            
+        }
+
+        
+
+        .pagination .current {
+            margin: 0 10px;
+            font-weight: bold;
+            color: grey;
+        }
+
+        
+        @media (max-width: 768px) {
+            .card {
+                width: 100%;
+                max-width: 90%;
+            }
+
+            .container {
+                gap: 15px;
+            }
+
+            .pagination .step-links a {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
-<body>
+<body style="background-color: turquoise;">
+    
+    <a href="{% url 'addproduct' %}" class="add-product">Add Product</a>
     <div class="container">
         {% for product in products %}
         <div class="card">
-            <img class="image" src="{{ product.image.url }}" alt="" width="100px" height="100px" >
+            <img class="image" src="{{ product.image.url }}" alt="{{ product.name }}">
             <h2>{{ product.name }}</h2>
             <p>{{ product.description }}</p>
             <p class="price">{{ product.price }}</p>
             <a href="{% url 'editproduct' id=product.id %}">Edit</a>
             <a href="{% url 'delete' id=product.id %}" class="delete">Delete</a>
         </div>
-        
         {% endfor %}
     </div>
-    
-    <div class="pagination mt-3">
+
+    <div class="pagination">
         <span class="step-links">
           {% if products.has_previous %}
-            <a class="btn btn-dark" href="?page=1">&laquo; first</a>
-            <a class="btn btn-dark" href="?page={{ products.previous_page_number }}">previous</a>
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ products.previous_page_number }}">Previous</a>
           {% endif %}
-
           <span class="current">Page {{ products.number }} of {{ products.paginator.num_pages }}.</span>
-
           {% if products.has_next %}
-            <a class="btn btn-dark" href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
-          {% endif %}
-          {% if products.has_next %}
-            <a class="btn btn-dark" href="?page={{ products.next_page_number }}">next</a>
+            <a href="?page={{ products.next_page_number }}">Next</a>
+            <a href="?page={{ products.paginator.num_pages }}">Last &raquo;</a>
           {% endif %}
         </span>
     </div>
-    
+{% endblock %}    
 </body>
 </html>

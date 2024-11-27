@@ -66,6 +66,11 @@ urlpatterns = [
     path('verify_otp',views.verify_otp,name='verify_otp'),
     path('set_new_password',views.set_new_password,name='set_new_password'),
     path('deleteorder/<int:id>/', views.deleteorders, name='deleteorder'),
+    path('buyproducts/<int:id>',views.buyproducts,name='buyproducts'),
+    path('category_list', views.category_list, name='category_list'),
+    path('add_category', views.add_category, name='add_category'),
+    path('delete_category/<int:id>',views.delete_category,name='delete_category'),
+    
     
 ]
 

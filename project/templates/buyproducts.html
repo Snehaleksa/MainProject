@@ -134,20 +134,20 @@
             
             
                 <tr>
-                    <td data-label="Name">{{ data1.name }}</td>
-                    <td data-label="Image"><img src="{{ data1.image.url }}" alt="Product Image"></td>
-                    <td data-label="Description">{{ data1.description }}</td>
-                    <td data-label="Price">{{ data1.price }}</td>
+                    <td data-label="Name">{{ product.name }}</td>
+                    <td data-label="Image"><img src="{{ product.image.url }}" alt="Product Image"></td>
+                    <td data-label="Description">{{ product.description }}</td>
+                    <td data-label="Price">{{ product.price }}</td>
                     <td data-label="Quantity">{{ data.quantity }}</td>
-                    <td data-label="Total Price">{{ totalprice }}</td>
+                    <td data-label="Total Price">{{ total_payment }}</td>
                 </tr>
             
         </table>
 
         <div class="dropdown">
             <p>Select Payment Method:</p>
-            <a href="{% url 'cash' id=data.id %}">Cash</a>
-            <a href="{% url 'debit_card_payment' id=data.id %}">Debit Card</a>
+            <a href="{% url 'cash' id=product.id %}">Cash</a>
+            <a href="{% url 'debit_card_payment' id=product.id %}">Debit Card</a>
         </div>
     </div>
 {% endblock %}

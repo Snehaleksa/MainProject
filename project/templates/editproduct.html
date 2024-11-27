@@ -1,23 +1,94 @@
+{% extends 'companyhome.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        body {
+        
+            margin: 0;
+            padding: 0;
+           
+        }
+
+        .form-container {
+            background-color: white;
+            padding: 25px 35px;
+            border-radius: 10px;
+            max-width: 450px;
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgb(68,67,67);
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: rgb(68, 67, 67);
+        }
+
+        .form-container input[type="text"],
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid rgb(167, 163, 163);
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .form-container input[type="submit"] {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 5px;
+            
+        }
+
+        
+
+        .form-container .file-upload {
+            border: 1px solid grey;
+            padding: 10px;
+            text-align: center;
+            color: rgb(156, 156, 156);
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
-    <form action="{% url 'editproduct' id=data.id %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <label for="">Name</label>
-        <input type="text" name="name" value="{{data.name}}" required><br><br>
-        <label for="">Image</label>
-        <input type="file" name="image"><br><br>
-        <label for="">Description</label>
-        <input type="text" name="description" value="{{data.description}}" required><br><br>
-        <label for="">Price</label>
-        <input type="text" name="price" value="{{data.price}}" required><br><br>
-        <input type="submit">
+    <div class="form-container">
+        <h2>Edit Product</h2>
+        <form action="{% url 'editproduct' id=data.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="name">Name</label>
+            <input type="text"  name="name" value="{{data.name}}" required>
 
-    </form>
+            <label for="image">Image</label>
+            <input type="file"  name="image" class="file-upload">
+
+            <label for="description">Description</label>
+            <input type="text"  name="description" value="{{data.description}}" required>
+
+            <label for="price">Price</label>
+            <input type="text"  name="price" value="{{data.price}}" required>
+
+            <input type="submit" value="Update Product">
+        </form>
+    </div>
+{% endblock %}    
 </body>
 </html>

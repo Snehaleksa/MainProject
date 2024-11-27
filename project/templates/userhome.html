@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gift Shop</title>
+    <title>Document</title>
     <style>
         * {
             margin: 0;
@@ -13,41 +13,41 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            
             background-color: turquoise;
         }
 
-        header {
-            background-color: pink;
-            padding: 10px 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
+        
         .nav-container {
             width: 100%;
-            height: 30px;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
             background-color: white;
-            padding: 0 20px;
+            padding: 10px 20px;
+            flex-wrap: wrap; 
+        }
+
+        .nav-container nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
         .nav-container nav a {
             color: black;
-            margin: 0 15px;
             text-decoration: none;
             font-weight: bold;
+            font-size: 14px;
         }
 
         .profile-pic {
             width: 30px;
             height: 30px;
-            margin-right: 15px;
         }
 
+        
         .banner {
             display: flex;
             align-items: center;
@@ -55,12 +55,14 @@
             background-color: turquoise;
             padding: 40px 20px;
             min-height: 300px;
+            flex-wrap: wrap; 
         }
 
         .banner-text {
             flex: 1;
             color: white;
             padding: 20px;
+            text-align: center;
         }
 
         .banner-text h1 {
@@ -75,15 +77,6 @@
             margin-bottom: 20px;
         }
 
-        .banner-text .btn {
-            padding: 10px 20px;
-            background-color: #ff5f7e;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
         .banner-image {
             flex: 1;
             text-align: center;
@@ -94,6 +87,8 @@
             height: auto;
             border-radius: 15px;
         }
+
+        
         .container {
            padding: 50px;
            text-align: center;
@@ -105,27 +100,27 @@
            font-weight: bold;
         }
 
-       .product-grid {
+        .product-grid {
            display: flex;
            flex-wrap: wrap;
            gap: 50px;
-    
+           justify-content: center; 
         }
 
-
-      .product-card {
+        .product-card {
           border: 1px solid rgb(221, 213, 213);
           border-radius: 10px;
           padding: 10px;
           background-color: white;
           text-align: center;
-    
           position: relative;
+          width: 100%;
+          max-width: 250px;
       }
 
      .product-card img {
-        max-width: 50%;
-        height: 50%;
+        max-width: 100%;
+        height: 150px;
         border-radius: 10px;
      }
 
@@ -139,12 +134,61 @@
       font-size: 16px;
     }
 
+    
+    @media screen and (max-width: 768px) {
+        .banner {
+            flex-direction: column; 
+            text-align: center;
+        }
+
+        .banner-text h1 {
+            font-size: 2rem; 
+        }
+
+        .banner-text p {
+            font-size: 1rem;
+        }
+
+        .banner-image {
+            margin-top: 20px;
+        }
+
+        .nav-container {
+            flex-direction: column; 
+            align-items: center;
+            padding: 20px 10px;
+        }
+
+        .nav-container nav {
+            flex-direction: column;
+            gap: 10px; 
+        }
+    }
+
+    @media screen and (max-width: 480px) {
+        .banner-text h1 {
+            font-size: 1.8rem;
+        }
+
+        .banner-text p {
+            font-size: 0.9rem;
+        }
+
+        .product-card h3 {
+            font-size: 18px;
+        }
+
+        .container h2 {
+            font-size: 28px;
+        }
+    }
     </style>
 </head>
 <body>
     <div class="nav-container">
-        <a href="{% url 'profileview' %}"><img src="{% static 'images/favicon.png' %}" alt="Logo" class="profile-pic"></a>
+        <img src="{% static 'images/favicon.png' %}" alt="Logo" class="profile-pic">
         <nav>
+            <a href="{% url 'userhome' %}"><img src="{% static 'img/userhome.jpg' %}" alt="" height="30px" width="35px"></a>
             <a href="{% url 'userviewproduct' %}">View Product</a>
             <a href="{% url 'viewcart' %}" class="view-cart"><img src="{% static 'img/cart.jpg' %}" alt="" height="28px" width="30px"></a>
             <a href="{% url 'vieworder' %}">View Order</a>
@@ -152,6 +196,7 @@
             <a href="{% url 'logout' %}"><img src="{% static 'img/logout.png' %}" alt="Logout" height="20px" width="20px"></a>
         </nav>
     </div>
+    {% block content %}
 
     <div class="banner">
         <div class="banner-text">
@@ -159,23 +204,24 @@
             <p>
                 Discover the perfect gifts for your loved ones. From unique items to personalized presents, our shop has everything you need to make any occasion special.
             </p>
-            
         </div>
         <div class="banner-image">
             <img src="{% static 'images/saving-img.png' %}" alt="Gift Shop">
         </div>
     </div>
+
     <div class="container">
         <h2>Latest Products</h2>
         <div class="product-grid">
           {% for i in data2|slice:4 %}
             <div class="product-card">
-                
                 <img src="{{ i.image.url }}" alt="{{ i.name }}">
                 <h3>{{ i.name }}</h3>
                 <p>Price: {{ i.price }}</p>
             </div>
-            {% endfor %}
+          {% endfor %}
         </div>
+    </div>
+    {% endblock %}
 </body>
 </html>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +13,7 @@
             
         }
 
-        body {
-            background-color: turquoise;
-            padding: 20px;
-        }
+        
 
         h1 {
             text-align: center;
@@ -52,21 +50,47 @@
             padding: 5px 10px;
             border-radius: 5px;
             background-color: green;
-            font-size: 0.9rem;
+            
         }
 
         
         td p {
             margin: 0;
             font-weight: bold;
-            color: gray;
+            color: blue;
         }
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            table {
+                border: none;
+            }
+
+            tr {
+                margin-bottom: 20px;
+            }
+
+            th, td {
+                text-align: right;
+                padding: 10px;
+                position: relative;
+                border: none;
+                border-bottom: 1px solid rgb(231, 230, 230);
+            }
+
+            
+
+            
+        }
+
 
 
         
     </style>
 </head>
-<body>
+<body style="background-color: turquoise;">
     <table>
         <tr>
             <th>Order ID</th>
@@ -99,7 +123,7 @@
         {% endfor %}
     </table>
     
-       
+    
     
 </body>
 </html>

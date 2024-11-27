@@ -1,3 +1,5 @@
+{% extends 'companyhome.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,10 +12,7 @@
             background-color: turquoise;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            
         }
 
         .form-container {
@@ -22,6 +21,8 @@
             border-radius: 8px;
             max-width: 400px;
             width: 100%;
+            margin: 0 auto;
+            margin-top: 20px;
         }
 
         .form-container h2 {
@@ -91,9 +92,17 @@
 
             <label for="price">Price</label>
             <input type="text"  name="price" required>
+            <label for="category">Category:</label>
+            <select name="category" required>
+               <option value="" >Select a Category</option>
+               {% for i in data1 %}
+               <option value="{{ i.id }}">{{ i.name }}</option>
+               {% endfor %}
+           </select><br><br>
 
             <input type="submit" value="Add Product">
         </form>
     </div>
+{% endblock %}    
 </body>
 </html>

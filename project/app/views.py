@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import auth
-from .models import CustomUser,User,Company,Product,Cart,Order,Whishlist
+from .models import CustomUser,User,Company,Product,Cart,Order,Whishlist,Category
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 import random
 from django.core.mail import send_mail
@@ -97,7 +97,7 @@ def Login(request):
                 return render(request,'login.html',{'message':"admin not aproved"})
         else:
             context={
-                'message':"Invalid credentiala"
+                'message':"Invalid credentials"
 
             } 
             return render(request,'login.html',context)
@@ -256,20 +256,22 @@ def companyedit(request,id):
 #Product
 def addproduct(request):
     data=Company.objects.get(company_id=request.user.id)
+    data1=Category.objects.all()
+
     if request.method=='POST':
         name=request.POST['name']
         image=request.FILES['image']
         description=request.POST['description']
         price=request.POST['price']
-        catogory=request.POST['catogory']
+        category =request.POST['category']
+        data2=Category.objects.get(id=category)
+        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price,category=category)
         
-        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price)
-        
-        data1.catogory =catogory 
+    
         data1.save()
-        return HttpResponse("success")
+        return redirect(Companyhome)
     else:
-        return  render(request,'addproduct.html')
+        return  render(request,'addproduct.html',{'data1':data1})
     
 
 def viewproduct(request):
@@ -482,3 +484,31 @@ def viewproducts(request):
 def products(request):
     data=Product.objects.all()
     return render(request,'products.html',{'data':data})
+
+
+def buyproducts(request,id):
+    product = Product.objects.get(id=id)
+    data= Cart.objects.get(id=id) 
+    total_payment=product.price* data.quantity
+    return render(request,'buyproducts.html',{'product':product,'total_payment':total_payment,'data':data}) 
+
+
+
+
+def add_category(request):
+    if request.method == 'POST':
+        category_name = request.POST['category_name']
+        data=Category.objects.create(name=category_name)
+        data.save()
+            
+    return render(request, 'add_category.html')
+
+def category_list(request):
+    data = Category.objects.all()
+    return render(request, 'category_list.html', {'data': data})
+
+def delete_category(request,id):
+    data=Category.objects.get(id=id)
+    data.delete()
+    return redirect(category_list)
+

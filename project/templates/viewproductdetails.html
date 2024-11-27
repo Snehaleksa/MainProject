@@ -51,6 +51,7 @@
         <h2>{{ product.name }}</h2>
         <p>{{ product.description }}</p>
         <p class="price">{{ product.price }}</p>
+        <a href="{% url 'buyproducts' id=product.id %}">Buynow</a>
     </div>
 </body>
 </html>

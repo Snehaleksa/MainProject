@@ -1,3 +1,5 @@
+{% extends 'companyhome.html' %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,80 +7,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        
         * {
             margin: 0;
             padding: 0;
-    
-        }
-
-    
-        body {
-            background-color: turquoise; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 600px;
+            box-sizing: border-box;
         }
 
         
+
         .form-container {
-            background-color:  pink; 
+            background-color: pink; 
             width: 80%;
             max-width: 600px;
+            margin: 50px auto;
             padding: 20px;
             border-radius: 10px;
-            text-align: left;
+            
         }
 
-        
-        form {
+        .form-row {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
         }
 
-        
+        .form-column {
+            flex: 1;
+        }
+
         label {
+            display: block;
             font-weight: bold;
-            margin-top: 10px;
-            color: rgb(58, 57, 57);
-            width: 100%;
+            margin-bottom: 5px;
+            color: rgb(44, 44, 44);
         }
 
-        input[type="text"] {
-            width: 50%; 
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 5px;
+        input[type="text"]{
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgb(146, 144, 144);
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .update-button {
+            text-align: center;
+            margin-top: 20px;
         }
 
         input[type="submit"] {
-            background-color: white;
-            color: black;
-            font-weight: bold;
+            background-color: blue;
+            color: white;
             border: none;
-            padding: 10px;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            
         }
 
         
+
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            input[type="text"]{
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            input[type="submit"] {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="form-container">
         <form action="{% url 'companyedit' id=data.id  %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <label for="name">Name</label>
-            <input type="text" name="name" value="{{data.name}}" required>
+            <div class="form-row">
+                <div class="form-column">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" value="{{data.name}}" required>
 
-            <label for="email">Email</label>
-            <input type="text" name="email" value="{{data.email}}" required>
-            <label for="address">Address</label>
-            <input type="text"  name="address" value="{{data.address}}" required>
-            <label for="contactnumber">Contact Number</label>
-            <input type="text"  name="contactnumber" value="{{data.contactnumber}}" required>
-            <input type="submit" value="Update">
+                    <label for="address">Address</label>
+                    <input type="text" name="address" value="{{data.address}}" required>
+                </div>
+
+                <div class="form-column">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" value="{{data.email}}" required>
+
+                    <label for="phone">Phone</label>
+                    <input type="text" name="contactnumber" value="{{data.contactnumber}}" required>
+                </div>
+            </div>
+            <div class="update-button">
+                <input type="submit" value="Update">
+            </div>
         </form>
     </div>
+    {% endblock %}
 </body>
 </html>
