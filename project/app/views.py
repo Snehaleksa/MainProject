@@ -546,3 +546,8 @@ def delete_category(request,id):
     data.delete()
     return redirect(category_list)
 
+def searchproduct2(request):
+    if request.method=='POST':
+        search=request.POST.get('search')
+        data=Product.objects.filter(category__icontains=search)
+        return render(request,'userproductview.html',{'data':data})

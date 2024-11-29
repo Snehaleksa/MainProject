@@ -94,7 +94,7 @@
     <div class="container">
         {% for i in orders %}
         <div class="card">
-            <img src="{{ i.cart_id.product_id.image.url  }}" alt="{{ i.name }}">
+            <img src="{{ i.product_id.image.url  }}" alt="{{ i.name }}">
             <p>{{ i.cart_id.product_id.name  }}</p>
             <p>{{i.cart_id.product_id.price}}</p>
             <p>{{i.cart_id.quantity}}</p>

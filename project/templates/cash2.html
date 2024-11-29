@@ -60,10 +60,10 @@
         <h2>Payment Details</h2>
         <div class="details">
             <p>User ID: {{ user.id }}</p>
-            <p>Name:{{ data.product_id.name }}</p>
-            <p>Price: {{ data.product_id.price }}</p>
+            <p>Name:{{ data.name }}</p>
+            <p>Price: {{ product_id.price }}</p>
             <p>Quantity: {{ data.quantity }}</p>
-            <p>{{data.product_id.product_quantity}}</p>
+            <p>{{data.product_quantity}}</p>
             <p>Total Payment: {{ total_payment }}</p>
         </div>
         <form action="" method="POST">

@@ -152,6 +152,13 @@
               <input type="submit" value="Search">
           </form>
       </div>
+      <div class="search-container">
+        <form action="search2" method="post">
+            {% csrf_token %}
+            <input type="search" name="search" placeholder="Search products">
+            <input type="submit" value="Search">
+        </form>
+    </div>
 
 
     
