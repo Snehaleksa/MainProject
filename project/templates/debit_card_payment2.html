@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: turquoise;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .payment-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            
+            width: 400px;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .payment-header h2 {
+            font-size: bold;
+            color: black;
+        }
+
+        .card-icons {
+            margin-top: 10px;
+        }
+
+        .card-icons img {
+            width: 40px;
+            margin-right: 5px;
+        }
+
+        .product-details {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: whitesmoke;
+            border-radius: 5px;
+        }
+
+        .product-details p {
+            margin: 5px 0;
+            
+            color: grey;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: grey;
+        }
+
+        form input {
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 1rem;
+            border: 1px solid whitesmoke;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        form button {
+            margin-top: 20px;
+            padding: 10px;
+            
+            font-weight: bold;
+            color: white;
+            background-color: rgb(85, 219, 85);
+            border: none;
+            border-radius: 5px;
+            
+        }
+
+        form button:hover {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-header">
+            <h2>Credit/Debit Card Payment</h2>
+            
+        </div>
+
+        <div class="product-details">
+            <p><strong>Product Name:</strong> {{ data.product_id.name }}</p>
+            <p><strong>Product Price:</strong> {{ data.product_id.price }}</p>
+            <p><strong>Quantity:</strong> {{ data.quantity }}</p>
+            <p><strong>Total Price:</strong> {{ total_payment }}</p>
+        </div>
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            <label for="card_number">Card Number</label>
+            <input type="text"  name="card_number"  required>
+
+            <label for="card_expiry">Expiry Date</label>
+            <input type="text"  name="card_expiry" placeholder="MM/YY" required>
+
+            <label for="card_cvv">CVV</label>
+            <input type="text"  name="card_cvv"  required>
+
+            <button type="submit">Submit Payment</button>
+        </form>
+    </div>
+</body>
+</html>

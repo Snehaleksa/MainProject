@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gift Shop</title>
     <style>
+        
         * {
             margin: 0;
             padding: 0;
@@ -14,19 +15,20 @@
 
         body {
             
-            background-color: turquoise;
+            background-color: rgb(226, 222, 222);
         }
 
         
         .nav-container {
             width: 100%;
-            height: auto;
+            
+            background-color: white;
+            padding: 15px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: white;
-            padding: 10px 20px;
-            flex-wrap: wrap; 
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgb(223, 219, 219);
         }
 
         .nav-container nav {
@@ -43,99 +45,103 @@
         }
 
         .profile-pic {
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
+        
         }
 
-        
+    
         .banner {
             display: flex;
             align-items: center;
             justify-content: space-between;
             background-color: turquoise;
             padding: 40px 20px;
-            min-height: 300px;
-            flex-wrap: wrap; 
+            flex-wrap: wrap;
         }
 
         .banner-text {
             flex: 1;
-            color: white;
             padding: 20px;
-            text-align: center;
+            text-align: left;
         }
 
         .banner-text h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            font-size: 2.8rem;
             font-weight: bold;
+            margin-bottom: 15px;
+            color: rgb(53, 52, 52);
         }
 
         .banner-text p {
-            font-size: 1.1rem;
-            line-height: 1.5;
-            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: rgb(83, 83, 83);
+        
         }
 
+        
         .banner-image {
             flex: 1;
             text-align: center;
         }
 
         .banner-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 15px;
+            max-width: 90%;
+            height: 300px;
+            border-radius: 10px;
         }
 
         
         .container {
-           padding: 50px;
-           text-align: center;
+            padding: 50px 20px;
+            text-align: center;
         }
 
         .container h2 {
-           font-size: 32px;
-           margin-bottom: 20px;
-           font-weight: bold;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            font-weight: bold;
+            color: rgb(56, 55, 55);
         }
 
         .product-grid {
-           display: flex;
-           flex-wrap: wrap;
-           gap: 50px;
-           justify-content: center; 
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
         }
 
         .product-card {
-          border: 1px solid rgb(221, 213, 213);
-          border-radius: 10px;
-          padding: 10px;
-          background-color: white;
-          text-align: center;
-          position: relative;
-          width: 100%;
-          max-width: 250px;
-      }
+            border: 1px solid rgb(199, 197, 197);
+            border-radius: 10px;
+            padding: 15px;
+            background-color: white;
+            text-align: center;
+            max-width: 200px;
+            
+        }
 
-     .product-card img {
-        max-width: 100%;
-        height: 150px;
-        border-radius: 10px;
-     }
 
-     .product-card h3 {
-       font-size: 20px;
-       margin: 10px 0;
-    }
 
-    .product-card p {
-      color: gray;
-      font-size: 16px;
-    }
+        .product-card img {
+            max-width: 100%;
+            height: 150px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
 
-    
-    @media screen and (max-width: 768px) {
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: rgb(39, 39, 39);
+        }
+
+        .product-card p {
+            
+            color: grey;
+        }
+
+        @media screen and (max-width: 768px) {
         .banner {
             flex-direction: column; 
             text-align: center;
@@ -182,6 +188,8 @@
             font-size: 28px;
         }
     }
+
+        
     </style>
 </head>
 <body>
@@ -190,32 +198,31 @@
         <nav>
             <a href="{% url 'userhome' %}"><img src="{% static 'img/userhome.jpg' %}" alt="" height="30px" width="35px"></a>
             <a href="{% url 'userviewproduct' %}">View Product</a>
-            <a href="{% url 'viewcart' %}" class="view-cart"><img src="{% static 'img/cart.jpg' %}" alt="" height="28px" width="30px"></a>
-            <a href="{% url 'vieworder' %}">View Order</a>
-            <a href="{% url 'profileview' %}"><img src="{% static 'img/profileview.jpg' %}" alt="Profile" height="25px" width="25px"></a>
-            <a href="{% url 'logout' %}"><img src="{% static 'img/logout.png' %}" alt="Logout" height="20px" width="20px"></a>
+            <a href="{% url 'viewcart' %}" class="view-cart">{{cartnumber}}<img src="{% static 'img/cart.jpg' %}" alt="" height="28px" width="30px"></a>
+            <a href="{% url 'vieworder' %}">Orders</a>
+            <a href="{% url 'profileview' %}"><img src="{% static 'img/profileview.jpg' %}" alt="" height="25px" width="25px"></a>
+            <a href="{% url 'logout' %}"><img src="{% static 'img/logout.png' %}" alt="" height="20px" width="20px"></a>
         </nav>
     </div>
+    
     {% block content %}
-
     <div class="banner">
         <div class="banner-text">
-            <h1>Welcome To Our <br> Gift Shop</h1>
-            <p>
-                Discover the perfect gifts for your loved ones. From unique items to personalized presents, our shop has everything you need to make any occasion special.
-            </p>
+            <h1>Welcome To Our  Gift Shop</h1>
+            <p>Discover the perfect gifts for your loved ones. From unique items to personalized presents, our shop has everything you need to make any occasion special.</p>
+            
         </div>
         <div class="banner-image">
-            <img src="{% static 'images/saving-img.png' %}" alt="Gift Shop">
+            <img src="{% static 'images/saving-img.png' %}" alt="">
         </div>
     </div>
 
     <div class="container">
-        <h2>Latest Products</h2>
+        <h2>View Latest Products</h2>
         <div class="product-grid">
           {% for i in data2|slice:4 %}
             <div class="product-card">
-                <img src="{{ i.image.url }}" alt="{{ i.name }}">
+                <a href="{% url 'viewproductdetails' id=i.id %}" ><img src="{{i.image.url}}" alt=""></a>
                 <h3>{{ i.name }}</h3>
                 <p>Price: {{ i.price }}</p>
             </div>

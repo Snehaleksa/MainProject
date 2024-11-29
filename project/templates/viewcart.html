@@ -2,137 +2,223 @@
 
 {% block content %}
     <style>
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            background-color:  turquoise;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            background-color: turquoise;
         }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            padding: 20px;
-            
-        }
-        .card {
-            background-color: white;
-            border-radius: 10px;
-            width: 300px;
-            padding: 20px;
-            text-align: center;
-            
-        }
+
         
-        .image{
-            width: 100%;
-            height: auto;
-            max-height: 200px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 15px;
+        .cart-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            
         }
-        .card h2 {
-            margin-bottom: 10px;
-            color: rgb(82,79,79);
+
+        .cart-header {
+            text-align: left;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgb(247,239,239);
+            margin-bottom: 20px;
         }
-        .card p {
-            color: rgb(82, 79, 79);
-          
-            margin-bottom: 15px;
+
+        .cart-header h1 {
+            font-size: 25px;
+            color: black;
         }
-        .buttons {
+
+        .cart-item {
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            gap: 10px;
+            border-bottom: 1px solid rgb(247, 239, 239);
+            padding: 15px 0;
+        }
+
+        
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .cart-item-info {
+            flex: 2;
+            margin-left: 20px;
+        }
+
+        .cart-item-info h2 {
+            font-size: 1.2rem;
+            color: black;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-info p {
+            color: rgb(90, 90, 90);
+            font-size: 15px;
+        }
+
+        .cart-item-actions {
+            text-align: right;
+        }
+
+        .cart-item-actions p {
+            font-size: 18px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .cart-item-actions .actions {
+            margin-top: 10px;
+        }
+
+        .actions a {
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 15px;
+            margin-right: 10px;
+            color: white;
         }
 
         .btn-delete {
-            flex: 1;
-            text-decoration: none;
-            color: white;
-            background-color: blue;
-            padding: 8px;
-            text-align: center;
-            border-radius: 5px;
-            font-size: 14px;
-            
+            background-color: red;
         }
 
-        .btn-delete:hover {
-            background-color: rgb(198, 198, 235);
-        }
+
 
         .btn-edit {
-            flex: 1;
-            text-decoration: none;
-            color: white;
-            background-color: red;
-            padding: 8px;
-            text-align: center;
-            border-radius: 5px;
-            font-size: 14px;
-        
+            background-color: blue;
         }
 
-        .btn-edit:hover {
-            background-color: green;
-        }
+
+
         .btn-buy {
-            flex: 1;
-            text-decoration: none;
-            color: white;
             background-color: green;
-            padding: 8px;
-            text-align: center;
-            border-radius: 5px;
-            font-size: 14px;
-            
         }
+
+        
+
+        .total_price {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .total_price h2 {
+            font-size: 1.5rem;
+            color: black;
+        }
+        @media (max-width: 768px) {
+        .cart-item {
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .cart-item img {
+            margin-bottom: 15px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .cart-item-info {
+            margin-left: 0;
+            margin-bottom: 15px;
+        }
+
+        .cart-item-actions {
+            text-align: left;
+        }
+
+        .total_price {
+            text-align: left;
+        }
+
+        .pagination a {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .cart-header h1 {
+            font-size: 1.5rem;
+        }
+
+        .cart-item img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .cart-item-info h2 {
+            font-size: 1rem;
+        }
+
+        .cart-item-actions p {
+            font-size: 0.9rem;
+        }
+
+        .actions a {
+            font-size: 0.8rem;
+            padding: 6px 10px;
+        }
+
+        .total_price h2 {
+            font-size: 1.2rem;
+        }
+    }
+
+
+       
+
+
 
 
     </style>
-</head>
-<body>
-    <div class="container">
+
+    <div class="cart-container">
+        <div class="cart-header">
+            <h1>Shopping Cart</h1>
+        </div>
         {% for i in data %}
-        <div class="card">
-            <h2>{{ i.product_id.name }}</h2>
-            <p>{{ i.product_id.description }}</p>
-            <img class="image" src="{{ i.product_id.image.url }}" alt="" height="100px" width="100px">
-            <h2>{{i.product_id.price}}</h2>
-            <div class="buttons">
-               <a href="{% url 'deletecart' id=i.id %}" class="btn-delete">Delete</a>
-               <a href="{% url 'editcart' id=i.id %}" class="btn-edit">Edit</a>
-               <a href="{% url 'buyproduct' id=i.id %}" class="btn-buy">Buy</a>
-            </div>   
+        <div class="cart-item">
+            <img src="{{ i.product_id.image.url }}" alt="{{ i.product_id.name }}">
+            <div class="cart-item-info">
+                <h2>{{ i.product_id.name }}</h2>
+                <p>{{ i.product_id.description }}</p>
+                
+            </div>
+            <div class="cart-item-actions">
+                <p>{{ i.product_id.price }}</p>
+                <div class="actions">
+                    <a href="{% url 'deletecart' id=i.id %}" class="btn-delete">Delete</a>
+                    <a href="{% url 'editcart' id=i.id %}" class="btn-edit">Edit</a>
+                    <a href="{% url 'buyproduct' id=i.id %}" class="btn-buy">Buy</a>
+                </div>
+            </div>
         </div>
         {% endfor %}
+        <div class="total_price">
+            <h2>Subtotal: {{ total_price }}</h2>
+        </div>
+        <div class="pagination">
+            {% if data.has_previous %}
+            <a href="?page=1">&laquo; First</a>
+            <a href="?page={{ data.previous_page_number }}">Previous</a>
+            {% endif %}
+            <span class="current">Page {{ data.number }} of {{ data.paginator.num_pages }}</span>
+            {% if data.has_next %}
+            <a href="?page={{ data.next_page_number }}">Next</a>
+            <a href="?page={{ data.paginator.num_pages }}">Last &raquo;</a>
+            {% endif %}
+        </div>
     </div>
-    <div>
-        <span>
-          {% if data.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ data.previous_page_number }}">previous</a>
-          {% endif %}
-
-          <span class="current">Page {{ data.number }} of {{ data.paginator.num_pages }}.</span>
-
-          {% if data.has_next %}
-            <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
-          {% endif %}
-          {% if data.has_next %}
-            <a  href="?page={{ data.next_page_number }}">next</a>
-          {% endif %}
-        </span>
-    </div>
-{% endblock %}    
-</body>
-</html>
+{% endblock %}

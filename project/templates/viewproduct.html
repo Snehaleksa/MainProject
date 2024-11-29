@@ -163,6 +163,7 @@
             <h2>{{ product.name }}</h2>
             <p>{{ product.description }}</p>
             <p class="price">{{ product.price }}</p>
+            <p>{{product.product_quantity}}</p>
             <a href="{% url 'editproduct' id=product.id %}">Edit</a>
             <a href="{% url 'delete' id=product.id %}" class="delete">Delete</a>
         </div>

@@ -177,9 +177,16 @@
               <img src="{{ i.image.url }}" alt="Product Image">
               <h2>{{ i.name }}</h2>
               <p class="price">{{ i.price }}</p>
+              <p>{{i.product_quantity}}</p>
+              <p>{{i.category}}</p>
+              
               <div class="buttons">
+                {% if i.product_quantity > 0 %}
                   <a href="{% url 'viewproductdetails' id=i.id %}" class="btn-view">View</a>
                   <a href="{% url 'addtocart' id=i.id %}" class="btn-cart">Add to Cart</a>
+                {% else %} 
+                <p>Out of stock</p> 
+                {% endif %}
               </div>
           </div>
           {% endfor %}

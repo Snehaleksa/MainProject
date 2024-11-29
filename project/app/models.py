@@ -40,6 +40,7 @@ class Product(models.Model):
     description=models.CharField(max_length=100)
     price=models.IntegerField()
     category=models.CharField(null=True,blank=True,max_length=100)
+    product_quantity=models.IntegerField(null=True,blank=True)
     
     
 
@@ -53,7 +54,8 @@ class Cart(models.Model):
 
 class Order(models.Model):
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
-    cart_id=models.ForeignKey(Cart,on_delete=models.CASCADE)
+    cart_id=models.ForeignKey(Cart,on_delete=models.CASCADE,null=True,blank=True)
+    product_id=models.ForeignKey(Product,on_delete=models.CASCADE,null=True,blank=True)
     payment=models.IntegerField()
     paymentmethod=models.CharField(max_length=100)
     status=models.CharField(null=True,blank=True,max_length=100)

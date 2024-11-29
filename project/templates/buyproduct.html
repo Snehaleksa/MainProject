@@ -15,7 +15,9 @@
         }
 
         
-
+        body{
+            background-color: turquoise;
+        }
         h2 {
             text-align: center;
             margin-bottom: 20px;
@@ -129,6 +131,7 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>Quantity</th>
+                    <th>Product quantity</th>
                     <th>Total Price</th>
                 </tr>
             
@@ -139,6 +142,7 @@
                     <td data-label="Description">{{ data1.description }}</td>
                     <td data-label="Price">{{ data1.price }}</td>
                     <td data-label="Quantity">{{ data.quantity }}</td>
+                    <td>{{data.product_id.product_quantity}}</td>
                     <td data-label="Total Price">{{ totalprice }}</td>
                 </tr>
             

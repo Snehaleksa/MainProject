@@ -70,6 +70,9 @@ urlpatterns = [
     path('category_list', views.category_list, name='category_list'),
     path('add_category', views.add_category, name='add_category'),
     path('delete_category/<int:id>',views.delete_category,name='delete_category'),
+    path('cash2/<int:id>',views.Cashpayemt2,name='cash2'),
+    path('debit_card_payment2/<int:id>', views.debit_card_payment2, name='debit_card_payment2'),
+    
     
     
 ]

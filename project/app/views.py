@@ -170,8 +170,9 @@ def Register(request):
 def Userhome(request):
     data=CustomUser.objects.get(id=request.user.id)
     data1=User.objects.get(user_id=data)
+    cartnumber=Cart.objects.filter(user_id=data1).count
     data2=Product.objects.all()
-    return render(request,'userhome.html',{'data1':data1,'data2':data2})    
+    return render(request,'userhome.html',{'data1':data1,'data2':data2,'cartnumber':cartnumber})    
 
     
 
@@ -264,8 +265,9 @@ def addproduct(request):
         description=request.POST['description']
         price=request.POST['price']
         category =request.POST['category']
+        product_quantity=request.POST['product_quantity']
         data2=Category.objects.get(id=category)
-        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price,category=category)
+        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price,category=category,product_quantity=product_quantity)
         
     
         data1.save()
@@ -349,6 +351,10 @@ def addtocart(request,id):
 def viewcart(request):
     user = User.objects.get( user_id=request.user.id)
     data= Cart.objects.filter(user_id=user)
+    total_price=0
+    for i in data:
+        total_price= total_price+i.product_id.price
+
     items_per_page=2
     paginator=Paginator(data,items_per_page)
     page=request.GET.get('page',1)
@@ -360,7 +366,8 @@ def viewcart(request):
     except EmptyPage:
         data=paginator.page(paginator.num_pages) 
     context={
-        'data':data
+        'data':data,
+        'total_price':total_price
     }  
     return render(request, 'viewcart.html',context)
 
@@ -395,9 +402,11 @@ def Cash_payment(request,id):
     if request.method=='POST':
         order=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
         order.save()
+        data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
+        data.save()
         return render(request,'order.html',{'data':data,'data1':data1,'user':user,'total_payment':total_payment})
     else:
-        return render(request,'cash.html',{'data':data,'user':user,'total_payment':total_payment})
+        return render(request,'cash.html',{'data':data,'user':user,'total_payment':total_payment,'data.product_id.product_quantity':data.product_id.product_quantity})
 
 
 
@@ -488,10 +497,35 @@ def products(request):
 
 def buyproducts(request,id):
     product = Product.objects.get(id=id)
-    data= Cart.objects.get(id=id) 
-    total_payment=product.price* data.quantity
-    return render(request,'buyproducts.html',{'product':product,'total_payment':total_payment,'data':data}) 
+    
+    total_payment=product.price
+    return render(request,'buyproducts.html',{'product':product,'total_payment':total_payment}) 
 
+
+def Cashpayemt2(request,id):
+    data=Product.objects.get(id=id)
+    user=User.objects.get(user_id=request.user.id)
+    total_payment=data.price
+    if request.method=='POST':
+        order=Order.objects.create(user_id=user,product_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
+        order.save()
+        #data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
+        #data.save()
+        return render(request,'order.html',{'data':data,'user':user,'total_payment':total_payment})
+    else:
+        return render(request,'cash2.html',{'data':data,'user':user,'total_payment':total_payment})
+    
+def debit_card_payment2(request, id):
+    user = User.objects.get(user_id=request.user.id) 
+    data= Product.objects.get(id=id) 
+    total_payment=data.price
+    if request.method == 'POST':
+       
+        data1=Order.objects.create(user_id=user,product_id=data,payment=total_payment,paymentmethod='Debitcard',status='order send')
+        data1.save()    
+        return render(request, 'order_confirmation.html')
+    else:
+       return render(request, 'debit_card_payment2.html', {'data': data,'total_payment':total_payment})    
 
 
 
