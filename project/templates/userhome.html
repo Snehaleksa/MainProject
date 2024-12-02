@@ -50,12 +50,12 @@
         
         }
 
-    
+        
         .banner {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: turquoise;
+            background-color: rgb(218, 243, 240);
             padding: 40px 20px;
             flex-wrap: wrap;
         }
@@ -140,6 +140,24 @@
             
             color: grey;
         }
+    
+       .cart-badge {
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          background-color: red;
+          color: white;
+          font-size: 12px;
+          font-weight: bold;
+          border-radius: 50%;
+          padding: 3px 6px;
+          text-align: center;
+          min-width: 20px;
+          min-height: 20px;
+         
+        }
+
+
 
         @media screen and (max-width: 768px) {
         .banner {
@@ -196,9 +214,22 @@
     <div class="nav-container">
         <img src="{% static 'images/favicon.png' %}" alt="Logo" class="profile-pic">
         <nav>
+            
             <a href="{% url 'userhome' %}"><img src="{% static 'img/userhome.jpg' %}" alt="" height="30px" width="35px"></a>
             <a href="{% url 'userviewproduct' %}">View Product</a>
-            <a href="{% url 'viewcart' %}" class="view-cart">{{cartnumber}}<img src="{% static 'img/cart.jpg' %}" alt="" height="28px" width="30px"></a>
+            <a href="{% url 'viewcart' %}" class="view-cart" style="position: relative;">
+                <img src="{% static 'img/cart.jpg' %}" alt="" height="28px" width="30px">
+                <span class="cart-badge">{{ cartnumber }}</span>
+            </a>
+            
+            <div class="search-container">
+                <form action="search2" method="post">
+                    {% csrf_token %}
+                    <input type="search" name="search" placeholder="Search by Category">
+                    <input type="submit" value="Search">
+                </form>
+            </div>
+            
             <a href="{% url 'vieworder' %}">Orders</a>
             <a href="{% url 'profileview' %}"><img src="{% static 'img/profileview.jpg' %}" alt="" height="25px" width="25px"></a>
             <a href="{% url 'logout' %}"><img src="{% static 'img/logout.png' %}" alt="" height="20px" width="20px"></a>
@@ -221,6 +252,7 @@
         <h2>View Latest Products</h2>
         <div class="product-grid">
           {% for i in data2|slice:4 %}
+          
             <div class="product-card">
                 <a href="{% url 'viewproductdetails' id=i.id %}" ><img src="{{i.image.url}}" alt=""></a>
                 <h3>{{ i.name }}</h3>

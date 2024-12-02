@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% extends 'userhome.html' %}
+{% block content %}
     <style>
         * {
             margin: 0;
@@ -11,19 +7,14 @@
             box-sizing: border-box;
         }
 
-        body {
-            background-color: turquoise;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+        
 
         .payment-container {
             background-color: white;
             border-radius: 10px;
             padding: 20px;
-            
+            margin: 0 auto;
+            margin-top: 50px;
             width: 400px;
         }
 
@@ -97,7 +88,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: rgb(218, 243, 240);">
     <div class="payment-container">
         <div class="payment-header">
             <h2>Credit/Debit Card Payment</h2>
@@ -108,6 +99,7 @@
             <p><strong>Product Name:</strong> {{ data.product_id.name }}</p>
             <p><strong>Product Price:</strong> {{ data.product_id.price }}</p>
             <p><strong>Quantity:</strong> {{ data.quantity }}</p>
+            <p><strong>Product_quantity:{{data.product_id.product_quantity}}</strong></p>
             <p><strong>Total Price:</strong> {{ total_payment }}</p>
         </div>
 
@@ -125,5 +117,6 @@
             <button type="submit">Submit Payment</button>
         </form>
     </div>
+{% endblock %}    
 </body>
 </html>

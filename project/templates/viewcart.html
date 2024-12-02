@@ -10,7 +10,7 @@
         }
 
         body {
-            background-color: turquoise;
+            background-color: rgb(218, 243, 240);
         }
 
         
@@ -197,7 +197,7 @@
                 
             </div>
             <div class="cart-item-actions">
-                <p>{{ i.product_id.price }}</p>
+                <p>₹{{ i.product_id.price }}</p>
                 <div class="actions">
                     <a href="{% url 'deletecart' id=i.id %}" class="btn-delete">Delete</a>
                     <a href="{% url 'editcart' id=i.id %}" class="btn-edit">Edit</a>

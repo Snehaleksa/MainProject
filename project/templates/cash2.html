@@ -62,13 +62,16 @@
             <p>User ID: {{ user.id }}</p>
             <p>Name:{{ data.name }}</p>
             <p>Price: {{ product_id.price }}</p>
-            <p>Quantity: {{ data.quantity }}</p>
-            <p>{{data.product_quantity}}</p>
+            
+            <p>Quantity: {{ data2.quantity }}</p>
+            
+            <p>data.product_id.product_quantity</p>
             <p>Total Payment: {{ total_payment }}</p>
         </div>
         <form action="" method="POST">
             {% csrf_token %}
-            <button type="submit">Submit Payment</button>
+            <button type="submit">Submit Payment</button>0.
+
         </form>
     </div>
     

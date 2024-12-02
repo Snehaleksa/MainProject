@@ -232,7 +232,9 @@ def companyregister(request):
         return render(request,"companyregister.html")
     
 def Companyhome(request):
-    return render(request,'companyhome.html')    
+    company = Company.objects.get(company_id=request.user.id)
+    products = Product.objects.filter(product_id=company)
+    return render(request,'companyhome.html',{'products':products})    
     
 def Companyprofile(request):
     data=CustomUser.objects.get(id=request.user.id)    
@@ -267,7 +269,7 @@ def addproduct(request):
         category =request.POST['category']
         product_quantity=request.POST['product_quantity']
         data2=Category.objects.get(id=category)
-        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price,category=category,product_quantity=product_quantity)
+        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price,category=data2.name,product_quantity=product_quantity)
         
     
         data1.save()
@@ -402,8 +404,10 @@ def Cash_payment(request,id):
     if request.method=='POST':
         order=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
         order.save()
+        
         data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
-        data.save()
+        data.product_id.save()
+        
         return render(request,'order.html',{'data':data,'data1':data1,'user':user,'total_payment':total_payment})
     else:
         return render(request,'cash.html',{'data':data,'user':user,'total_payment':total_payment,'data.product_id.product_quantity':data.product_id.product_quantity})
@@ -419,10 +423,12 @@ def debit_card_payment(request, id):
     if request.method == 'POST':
        
         data1=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Debitcard',status='order send')
-        data1.save()    
+        data1.save() 
+        data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
+        data.product_id.save()   
         return render(request, 'order_confirmation.html')
     else:
-       return render(request, 'debit_card_payment.html', {'data': data,'total_payment':total_payment})
+       return render(request, 'debit_card_payment.html', {'data': data,'total_payment':total_payment,'data.product_id.product_quantity':data.product_id.product_quantity})
         
 
 
@@ -509,6 +515,7 @@ def Cashpayemt2(request,id):
     if request.method=='POST':
         order=Order.objects.create(user_id=user,product_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
         order.save()
+       
         #data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
         #data.save()
         return render(request,'order.html',{'data':data,'user':user,'total_payment':total_payment})

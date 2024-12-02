@@ -15,18 +15,7 @@
         }
 
         
-
-
-
-
-    
-        
-
-
-        
-
-    
-        .container {
+       .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
@@ -72,7 +61,7 @@
         
     </style>
 </head>
-<body style="background-color: turquoise;">
+<body style="background-color: rgb(226, 222, 222);">
     
     
     
@@ -84,7 +73,7 @@
           {% for i in data|slice:4 %}
           <div class="card">
               
-              <img src="{{ i.image.url }}" alt="Product Image">
+              <a href="login"><img src="{{ i.image.url }}" alt="Product Image"></a>
               <h2>{{ i.name }}</h2>
               <p class="price">{{ i.price }}</p>
               

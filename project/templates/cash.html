@@ -1,25 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% extends 'userhome.html' %}
+
+{% block content %}
     <style>
-        body {
-            background-color: turquoise;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+        
 
         .payment-container {
             background-color: whitesmoke;
             padding: 20px 30px;
             border-radius: 8px;
             width: 400px;
+            margin: 0 auto;
+            margin-top: 50px;
         }
 
         h2 {
@@ -55,7 +46,7 @@
         
     </style>
 </head>
-<body>
+<body style="background-color: rgb(218, 243, 240);">
     <div class="payment-container">
         <h2>Payment Details</h2>
         <div class="details">
@@ -63,7 +54,7 @@
             <p>Name:{{ data.product_id.name }}</p>
             <p>Price: {{ data.product_id.price }}</p>
             <p>Quantity: {{ data.quantity }}</p>
-            <p>{{data.product_id.product_quantity}}</p>
+            <p>Product_quantity:{{data.product_id.product_quantity}}</p>
             <p>Total Payment: {{ total_payment }}</p>
         </div>
         <form action="" method="POST">
@@ -71,6 +62,6 @@
             <button type="submit">Submit Payment</button>
         </form>
     </div>
-    
+{% endblock %}    
 </body>
 </html>

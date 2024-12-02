@@ -41,6 +41,9 @@ class Product(models.Model):
     price=models.IntegerField()
     category=models.CharField(null=True,blank=True,max_length=100)
     product_quantity=models.IntegerField(null=True,blank=True)
+    color = models.CharField(max_length=100, null=True, blank=True)
+    size = models.CharField(max_length=100, null=True, blank=True)
+    
     
     
 

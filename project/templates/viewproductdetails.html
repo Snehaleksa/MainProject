@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% extends 'userhome.html' %}
+{% block content %}
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: turquoise;
-        }
+       
+        
         .card {
             background-color: white;
             border-radius: 10px;
+            margin: 0 auto;
+            margin-top: 50px;
             width: 300px;
             padding: 20px;
             text-align: center;
@@ -45,7 +40,7 @@
         }
     </style>
 </head>
-<body>
+<body style="background-color: rgb(218, 243, 240);">
     <div class="card">
         <img src="{{ product.image.url }}" alt="">
         <h2>{{ product.name }}</h2>
@@ -53,8 +48,7 @@
         <p class="price">{{ product.price }}</p>
         <a href="{% url 'buyproducts' id=product.id %}">Buynow</a>
     </div>
-</body>
-</html>
+{% endblock %}
 
 
 
