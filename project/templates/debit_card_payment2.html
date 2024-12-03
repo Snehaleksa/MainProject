@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% extends 'userhome.html' %}
+{% block content %}
     <style>
         * {
             margin: 0;
@@ -11,15 +7,10 @@
             box-sizing: border-box;
         }
 
-        body {
-            background-color: turquoise;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
+        
         .payment-container {
+            margin: 0 auto;
+            margin-top: 50px;
             background-color: white;
             border-radius: 10px;
             padding: 20px;
@@ -59,19 +50,19 @@
             color: grey;
         }
 
-        form {
+        .form1 {
             display: flex;
             flex-direction: column;
         }
 
-        form label {
+        .form1 label {
             margin-top: 10px;
             font-size: 0.9rem;
             font-weight: bold;
             color: grey;
         }
 
-        form input {
+        .form1 input {
             padding: 10px;
             margin-top: 5px;
             font-size: 1rem;
@@ -80,7 +71,7 @@
             width: 100%;
         }
 
-        form button {
+        .form1 button {
             margin-top: 20px;
             padding: 10px;
             
@@ -92,12 +83,12 @@
             
         }
 
-        form button:hover {
+        .form1 button:hover {
             background-color: green;
         }
     </style>
 </head>
-<body>
+<body style="background-color: rgb(218, 243, 240);">
     <div class="payment-container">
         <div class="payment-header">
             <h2>Credit/Debit Card Payment</h2>
@@ -105,13 +96,13 @@
         </div>
 
         <div class="product-details">
-            <p><strong>Product Name:</strong> {{ data.product_id.name }}</p>
-            <p><strong>Product Price:</strong> {{ data.product_id.price }}</p>
-            <p><strong>Quantity:</strong> {{ data.quantity }}</p>
+            <p><strong>Product Name:</strong> {{ data.name }}</p>
+            <p><strong>Product Price:</strong> {{ data.price }}</p>
+            <p><strong>Quantity:</strong> {{ quantity }}</p>
             <p><strong>Total Price:</strong> {{ total_payment }}</p>
         </div>
 
-        <form action="" method="POST">
+        <form class="form1" action="" method="POST">
             {% csrf_token %}
             <label for="card_number">Card Number</label>
             <input type="text"  name="card_number"  required>
@@ -125,5 +116,4 @@
             <button type="submit">Submit Payment</button>
         </form>
     </div>
-</body>
-</html>
+{% endblock %}

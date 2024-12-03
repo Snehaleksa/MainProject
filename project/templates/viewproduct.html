@@ -164,6 +164,9 @@
             <p>{{ product.description }}</p>
             <p class="price">{{ product.price }}</p>
             <p>{{product.product_quantity}}</p>
+            {% if product_size %}
+            <p>{{product.size}}</p>
+            {% endif %}
             <p>{{data2.name}}</p>
             <a href="{% url 'editproduct' id=product.id %}">Edit</a>
             <a href="{% url 'delete' id=product.id %}" class="delete">Delete</a>

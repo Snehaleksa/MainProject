@@ -173,7 +173,7 @@
             <a href="{% url 'viewproductdetails' id=i.id %}" class="btn-view">View</a>
             <a href="{% url 'addtocart' id=i.id %}" class="btn-cart">Add to Cart</a>
             {% else %}
-            <p class="out-of-stock">Out of stock</p>
+            <p style="color: red;">Out of stock</p>
             {% endif %}
         </div>
     </div>

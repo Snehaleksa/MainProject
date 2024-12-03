@@ -50,19 +50,19 @@
             color: grey;
         }
 
-        form {
+        .form1 {
             display: flex;
             flex-direction: column;
         }
 
-        form label {
+        .form1 label {
             margin-top: 10px;
             font-size: 0.9rem;
             font-weight: bold;
             color: grey;
         }
 
-        form input {
+        .form1 input {
             padding: 10px;
             margin-top: 5px;
             font-size: 1rem;
@@ -71,7 +71,7 @@
             width: 100%;
         }
 
-        form button {
+        .form1 button {
             margin-top: 20px;
             padding: 10px;
             
@@ -83,7 +83,7 @@
             
         }
 
-        form button:hover {
+        .form1 button:hover {
             background-color: green;
         }
     </style>
@@ -103,7 +103,7 @@
             <p><strong>Total Price:</strong> {{ total_payment }}</p>
         </div>
 
-        <form action="" method="POST">
+        <form class="form1" action="" method="POST">
             {% csrf_token %}
             <label for="card_number">Card Number</label>
             <input type="text"  name="card_number"  required>

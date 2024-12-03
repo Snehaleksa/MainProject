@@ -179,10 +179,12 @@ def Userhome(request):
 def Profileview(request):
     data=CustomUser.objects.get(id=request.user.id)
     data1=User.objects.get(user_id=data)
-    return render(request,'profileview.html',{'data1':data1})
+    data2=Cart.objects.filter(user_id=data1).count
+    return render(request,'profileview.html',{'data1':data1,'cartnumber':data2})
 
 def edit(request,id):
     data=User.objects.get(id=id)
+    data2=Cart.objects.filter(user_id=data).count
     if request.method=='POST':
         data.name=request.POST['name']
         if 'image' in request.FILES:
@@ -193,7 +195,7 @@ def edit(request,id):
         data.save()
         return redirect(Profileview)
     else:
-        return render(request,'edit.html',{'data':data})
+        return render(request,'edit.html',{'data':data,'cartnumber':data2})
 
 
 
@@ -203,8 +205,9 @@ def Userproductview(request):
     id=CustomUser.objects.get(id=request.user.id)
     user = User.objects.get( user_id=id)
     data=Product.objects.all()
+    data2=Cart.objects.filter(user_id=user).count
     wishlist=Whishlist.objects.filter(user_id=user).values_list('product_id',flat=True)
-    return render(request,'userproductview.html',{'data':data,'wishlist':wishlist})
+    return render(request,'userproductview.html',{'data':data,'wishlist':wishlist,'cartnumber':data2})
 
 def searchproduct(request):
     if request.method=='POST':
@@ -268,8 +271,10 @@ def addproduct(request):
         price=request.POST['price']
         category =request.POST['category']
         product_quantity=request.POST['product_quantity']
+        if 'Product_size' in request.POST:
+            product_size=request.GetList('Product_size')
         data2=Category.objects.get(id=category)
-        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price,category=data2.name,product_quantity=product_quantity)
+        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price,category=data2.name,product_quantity=product_quantity,size=product_size)
         
     
         data1.save()
@@ -330,7 +335,10 @@ def get_product(request):
 
 def viewproductdetails(request, id):
     product = Product.objects.get(id=id)
-    return render(request, 'viewproductdetails.html', {'product': product})
+    user = User.objects.get( user_id=request.user.id)
+    data2=Cart.objects.filter(user_id=user).count
+
+    return render(request, 'viewproductdetails.html', {'product': product,'cartnumber':data2})
 
 
 
@@ -353,6 +361,7 @@ def addtocart(request,id):
 def viewcart(request):
     user = User.objects.get( user_id=request.user.id)
     data= Cart.objects.filter(user_id=user)
+    data2=Cart.objects.filter(user_id=user).count
     total_price=0
     for i in data:
         total_price= total_price+i.product_id.price
@@ -369,9 +378,11 @@ def viewcart(request):
         data=paginator.page(paginator.num_pages) 
     context={
         'data':data,
-        'total_price':total_price
+        'total_price':total_price,
+        'cartnumber':data2
     }  
     return render(request, 'viewcart.html',context)
+
 
 def deletecart(request,id):
     data=Cart.objects.get(id=id)
@@ -380,26 +391,31 @@ def deletecart(request,id):
 
 def editcart(request,id):
     data=Cart.objects.get(id=id)
+    user=User.objects.get(user_id=request.user.id)
+    data2=Cart.objects.filter(user_id=user).count
     if request.method=='POST':
         data.quantity=request.POST['quantity'] 
         data.save()  
         return redirect(viewcart)
     else:
-        return render(request,'editcart.html',{'data':data})
+        return render(request,'editcart.html',{'data':data,'cartnumber':data2})
     
 
 def buyproduct(request,id):
     data=Cart.objects.get(id=id)
+    user=User.objects.get(user_id=request.user.id)
     data1=data.product_id
+    data2=Cart.objects.filter(user_id=user).count
     totalprice = data1.price * data.quantity
     
-    return render(request,'buyproduct.html',{'data':data,'data1':data1,'totalprice':totalprice}) 
+    return render(request,'buyproduct.html',{'data':data,'data1':data1,'totalprice':totalprice,'cartnumber':data2}) 
 
 #order
 def Cash_payment(request,id):
     data=Cart.objects.get(id=id)
     data1=data.product_id
     user=User.objects.get(user_id=request.user.id)
+    data2=Cart.objects.filter(user_id=user).count
     total_payment=data1.price*data.quantity
     if request.method=='POST':
         order=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
@@ -410,7 +426,7 @@ def Cash_payment(request,id):
         
         return render(request,'order.html',{'data':data,'data1':data1,'user':user,'total_payment':total_payment})
     else:
-        return render(request,'cash.html',{'data':data,'user':user,'total_payment':total_payment,'data.product_id.product_quantity':data.product_id.product_quantity})
+        return render(request,'cash.html',{'data':data,'user':user,'total_payment':total_payment,'data.product_id.product_quantity':data.product_id.product_quantity,'cartnumber':data2})
 
 
 
@@ -419,6 +435,7 @@ def Cash_payment(request,id):
 def debit_card_payment(request, id):
     user = User.objects.get(user_id=request.user.id) 
     data= Cart.objects.get(id=id) 
+    data2=Cart.objects.filter(user_id=user).count
     total_payment=data.product_id.price* data.quantity
     if request.method == 'POST':
        
@@ -428,7 +445,7 @@ def debit_card_payment(request, id):
         data.product_id.save()   
         return render(request, 'order_confirmation.html')
     else:
-       return render(request, 'debit_card_payment.html', {'data': data,'total_payment':total_payment,'data.product_id.product_quantity':data.product_id.product_quantity})
+       return render(request, 'debit_card_payment.html', {'data': data,'total_payment':total_payment,'data.product_id.product_quantity':data.product_id.product_quantity,'cartnumber':data2})
         
 
 
@@ -444,7 +461,8 @@ def allorders(request):
 def vieworder(request):
     user = User.objects.get(user_id=request.user.id) 
     orders = Order.objects.filter(user_id=user)
-    return render(request, 'userorder.html', {'orders': orders})
+    data2=Cart.objects.filter(user_id=user).count
+    return render(request, 'userorder.html', {'orders': orders,'cartnumber':data2})
 
 
 def deleteorders(request, id):
@@ -503,36 +521,51 @@ def products(request):
 
 def buyproducts(request,id):
     product = Product.objects.get(id=id)
-    
-    total_payment=product.price
-    return render(request,'buyproducts.html',{'product':product,'total_payment':total_payment}) 
-
-
-def Cashpayemt2(request,id):
-    data=Product.objects.get(id=id)
     user=User.objects.get(user_id=request.user.id)
-    total_payment=data.price
-    if request.method=='POST':
-        order=Order.objects.create(user_id=user,product_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
-        order.save()
-       
-        #data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
-        #data.save()
-        return render(request,'order.html',{'data':data,'user':user,'total_payment':total_payment})
-    else:
-        return render(request,'cash2.html',{'data':data,'user':user,'total_payment':total_payment})
+    data2=Cart.objects.filter(user_id=user).count
+    total_payment=product.price
+    return render(request,'buyproducts.html',{'product':product,'total_payment':total_payment,'cartnumber':data2}) 
+
+
+def Cashpayemt2(request, id):
+    data = Product.objects.get(id=id)
+    custom_user = request.user
+    user = User.objects.get(user_id=custom_user)
+    cart = Cart.objects.get(product_id=data, user_id=user)
+    quantity = cart.quantity
     
-def debit_card_payment2(request, id):
-    user = User.objects.get(user_id=request.user.id) 
+
+
+    total_payment = data.price * quantity
+
+    if request.method == 'POST':
+        
+        order = Order.objects.create(user_id=user,cart_id=cart,product_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
+        order.save()
+        data.product_quantity=data.product_quantity-cart.quantity
+        data.save()
+        return render(request, 'order.html', {'data': data, 'user': user, 'total_payment': total_payment})
+
+    return render(request, 'cash2.html', {'data': data, 'user': user, 'total_payment': total_payment,'quantity':quantity,'data.product_quantity':data.product_quantity})
+
+    
+def debit_card_payment2(request, id): 
     data= Product.objects.get(id=id) 
-    total_payment=data.price
+    custom_user = request.user
+    user = User.objects.get(user_id=custom_user)
+    cart = Cart.objects.get(product_id=data, user_id=user)
+    data2=Cart.objects.filter(user_id=user).count
+    quantity=cart.quantity
+    total_payment=data.price*quantity
     if request.method == 'POST':
        
-        data1=Order.objects.create(user_id=user,product_id=data,payment=total_payment,paymentmethod='Debitcard',status='order send')
-        data1.save()    
+        order=Order.objects.create(user_id=user,product_id=data,payment=total_payment,paymentmethod='Debitcard',status='order send')
+        order.save() 
+        data.product_quantity=data.product_quantity-cart.quantity
+        data.save()   
         return render(request, 'order_confirmation.html')
     else:
-       return render(request, 'debit_card_payment2.html', {'data': data,'total_payment':total_payment})    
+       return render(request, 'debit_card_payment2.html', {'data': data,'total_payment':total_payment,'cartnumber':data2,'quantity':quantity})    
 
 
 
