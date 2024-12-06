@@ -31,7 +31,20 @@ class Company(models.Model):
     def __str__(self):
         return self.name
     
+class Size(models.Model):
+    name=models.CharField(max_length=100)
 
+
+    def __str__(self):
+        return self.name
+    
+
+class Color(models.Model):
+    name=models.CharField(max_length=100) 
+
+
+    def __str__(self):
+        return self.name   
 
 class Product(models.Model):
     product_id=models.ForeignKey(Company,on_delete=models.CASCADE)
@@ -41,8 +54,8 @@ class Product(models.Model):
     price=models.IntegerField()
     category=models.CharField(null=True,blank=True,max_length=100)
     product_quantity=models.IntegerField(null=True,blank=True)
-    color = models.CharField(max_length=100, null=True, blank=True)
-    size = models.CharField(max_length=100, null=True, blank=True)
+    color = models.ManyToManyField(Color)
+    size = models.ManyToManyField(Size)
     
     
     
@@ -52,12 +65,15 @@ class Product(models.Model):
 class Cart(models.Model):
     product_id=models.ForeignKey(Product,on_delete=models.CASCADE)
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
+    
     quantity=models.IntegerField(default=1,null=True,blank=True)
+    size=models.CharField(max_length=100,null=True,blank=True)
+    
 
 
 class Order(models.Model):
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
-    cart_id=models.ForeignKey(Cart,on_delete=models.CASCADE,null=True,blank=True)
+    
     product_id=models.ForeignKey(Product,on_delete=models.CASCADE,null=True,blank=True)
     payment=models.IntegerField()
     paymentmethod=models.CharField(max_length=100)

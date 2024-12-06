@@ -80,7 +80,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
-                <th>Quantity</th>
+                
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -92,7 +92,7 @@
                 <td>{{ i.cart_id.product_id.name }}{{ i.product_id.name }}</td>
                 <td>{{ i.cart_id.product_id.description }}{{ i.product_id.description }}</td>
                 <td>₹{{ i.cart_id.product_id.price }}{{ i.product_id.price }}</td>
-                <td>{{ i.cart_id.quantity }}{{ i.product_id.quantity }}</td>
+                
                 <td>
                     {% if i.status == 'order send' %}
                         <p style="color: red;">{{ i.status }}</p>

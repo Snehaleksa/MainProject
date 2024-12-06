@@ -7,7 +7,7 @@
 </head>
 <body>
     <h3>Add  New Category</h3>
-    <form method="post">
+    <form method="post" >
         {% csrf_token %}
         <label for="category_name">Category Name:</label>
         <input type="text"  name="category_name" required>

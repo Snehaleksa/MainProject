@@ -3,16 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Documnet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            
+            display: flex;
+        }
+
+        
+        .side {
+            width: 250px;
+            height: 100vh;
+            background-color: rgb(199, 180, 233);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .side a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 5px;
+            
+        }
+
+
+
+
+    </style>
 </head>
 <body>
-    <nav>
-        <a href="{% url 'adminhome' %}">Adminhome</a>
-        <a href="{% url 'userdetails' %}">Users</a>
-        <a href="{% url 'companydetails' %}">Company</a>
-        <a href="{% url 'viewallproduct' %}">view all product</a>
-        <a href="{% url 'category_list' %}">Categories</a>
+    
+    <div class="side">
+        <h2 style="color: black; text-align: center;">Admin Dashboard</h2>
+        <a href="{% url 'adminhome' %}">Admin Home</a>
+        <a href="{% url 'userdetails' %}">User Details</a>
+        <a href="{% url 'companydetails' %}">Company Details</a>
+        <a href="{% url 'viewallproduct' %}">View All Products</a>
+        <a href="{% url 'category_list' %}">Category</a>
+        <a href="{% url 'add_size' %}">Add size</a>
+        <a href="{% url 'add_color'}">Add Color</a>
+        <a href="{% url 'color_list' %}">color_list</a>
+    </div>
 
-    </nav>
+
+
 </body>
 </html>

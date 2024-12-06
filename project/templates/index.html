@@ -264,8 +264,8 @@
         <div class="product-grid">
           {% for i in products|slice:4 %}
             <div class="product-card">
-                <div class="new-badge"><a href="login">New</a></div>
-                <a href="login"><img src="{{ i.image.url }}" alt="{{ i.name }}"></a>
+                
+                <a href="{% url 'login' %}"><img src="{{ i.image.url }}" alt="{{ i.name }}"></a>
                 <h3>{{ i.name }}</h3>
                 <p>Price: {{ i.price }}</p>
             </div>

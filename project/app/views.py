@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import auth
-from .models import CustomUser,User,Company,Product,Cart,Order,Whishlist,Category
+from .models import CustomUser,User,Company,Product,Cart,Order,Whishlist,Category,Size,Color
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 import random
 from django.core.mail import send_mail
@@ -263,6 +263,9 @@ def companyedit(request,id):
 def addproduct(request):
     data=Company.objects.get(company_id=request.user.id)
     data1=Category.objects.all()
+    sizes=Size.objects.all()
+    colors=Color.objects.all()
+    
 
     if request.method=='POST':
         name=request.POST['name']
@@ -272,15 +275,19 @@ def addproduct(request):
         category =request.POST['category']
         product_quantity=request.POST['product_quantity']
         if 'Product_size' in request.POST:
-            product_size=request.GetList('Product_size')
+            product_size=request.POST.getlist('Product_size') 
+        if 'colors' in request.POST:
+            product_color=request.POST.getlist('colors') 
+            
         data2=Category.objects.get(id=category)
-        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price,category=data2.name,product_quantity=product_quantity,size=product_size)
-        
+        data1=Product.objects.create(product_id=data,name=name,image=image,description=description,price=price,category=data2.name,product_quantity=product_quantity)
+        data1.size.set(product_size)
+        data1.color.set(product_color)
     
         data1.save()
         return redirect(Companyhome)
     else:
-        return  render(request,'addproduct.html',{'data1':data1})
+        return  render(request,'addproduct.html',{'data1':data1,'sizes':sizes,'colors':colors})
     
 
 def viewproduct(request):
@@ -395,6 +402,7 @@ def editcart(request,id):
     data2=Cart.objects.filter(user_id=user).count
     if request.method=='POST':
         data.quantity=request.POST['quantity'] 
+        data.size=request.POST['size']
         data.save()  
         return redirect(viewcart)
     else:
@@ -418,9 +426,9 @@ def Cash_payment(request,id):
     data2=Cart.objects.filter(user_id=user).count
     total_payment=data1.price*data.quantity
     if request.method=='POST':
-        order=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
+        order=Order.objects.create(user_id=user,product_id=data1,payment=total_payment,paymentmethod='Cash',status='order send')
         order.save()
-        
+        data.delete()
         data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
         data.product_id.save()
         
@@ -435,12 +443,14 @@ def Cash_payment(request,id):
 def debit_card_payment(request, id):
     user = User.objects.get(user_id=request.user.id) 
     data= Cart.objects.get(id=id) 
+    data1=data.product_id
     data2=Cart.objects.filter(user_id=user).count
     total_payment=data.product_id.price* data.quantity
     if request.method == 'POST':
        
-        data1=Order.objects.create(user_id=user,cart_id=data,payment=total_payment,paymentmethod='Debitcard',status='order send')
+        data1=Order.objects.create(user_id=user,product_id=data1,payment=total_payment,paymentmethod='Debitcard',status='order send')
         data1.save() 
+        data.delete()
         data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
         data.product_id.save()   
         return render(request, 'order_confirmation.html')
@@ -455,14 +465,15 @@ def debit_card_payment(request, id):
 def allorders(request):
     data=CustomUser.objects.get(id=request.user.id)
     compani=Company.objects.get(company_id=data)
-    order=Order.objects.filter(cart_id__product_id__product_id=compani)
+    order=Order.objects.filter(product_id__product_id=compani)
     return render(request,'allorders.html',{'orders':order})
 
 def vieworder(request):
     user = User.objects.get(user_id=request.user.id) 
     orders = Order.objects.filter(user_id=user)
     data2=Cart.objects.filter(user_id=user).count
-    return render(request, 'userorder.html', {'orders': orders,'cartnumber':data2})
+    data3=Cart.objects.all()
+    return render(request, 'userorder.html', {'orders': orders,'cartnumber':data2,'data3':data3})
 
 
 def deleteorders(request, id):
@@ -540,7 +551,7 @@ def Cashpayemt2(request, id):
 
     if request.method == 'POST':
         
-        order = Order.objects.create(user_id=user,cart_id=cart,product_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
+        order = Order.objects.create(user_id=user,product_id=data,payment=total_payment,paymentmethod='Cash',status='order send')
         order.save()
         data.product_quantity=data.product_quantity-cart.quantity
         data.save()
@@ -585,6 +596,28 @@ def delete_category(request,id):
     data=Category.objects.get(id=id)
     data.delete()
     return redirect(category_list)
+def add_size(request):
+    if request.method == 'POST':
+        size = request.POST['size']
+        data=Size.objects.create(name=size)
+        data.save()
+            
+    return render(request, 'add_size.html')
+
+def add_color(request):
+    if request.method == 'POST':
+        color = request.POST['color']
+        data=Color.objects.create(name=color)
+        data.save()
+            
+    return render(request, 'add_color.html')
+def delete_color(request,id):
+    data=Color.objects.get(id=id)
+    data.delete()
+    return redirect(color_list)
+def color_list(request):
+    data = Color.objects.all()
+    return render(request, 'color_list.html', {'data': data})
 
 def searchproduct2(request):
     if request.method=='POST':

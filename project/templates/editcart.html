@@ -69,6 +69,14 @@
             {% csrf_token %}
             <label for="quantity">Quantity</label>
             <input type="text" name="quantity" value="{{data.quantity}}" required>
+            <label for="">Size</label>
+            <select name="size" id="">
+                <option value="">Choose Size</option>
+                {% for i in data.product_id.size.all %}
+                <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+            </select>
+                
             <input type="submit" value="Update Cart">
         </form>
     </div>

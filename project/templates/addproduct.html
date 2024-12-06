@@ -8,11 +8,9 @@
     <title>Document</title>
     <style>
         body {
-            
             background-color: turquoise;
             margin: 0;
             padding: 0;
-            
         }
 
         .form-container {
@@ -48,8 +46,6 @@
             font-size: 14px;
         }
 
-        
-
         .form-container input[type="submit"] {
             background-color: green;
             color: white;
@@ -58,7 +54,6 @@
             width: 100%;
             font-size: 16px;
             border-radius: 5px;
-            
         }
 
         .form-container input[type="submit"]:hover {
@@ -72,6 +67,18 @@
             color: grey;
             font-size: 14px;
         }
+
+        .color-display {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .color-box {
+            width: 30px;
+            height: 30px;
+            border: 1px solid black;
+        }
     </style>
 </head>
 <body>
@@ -80,40 +87,50 @@
         <form action="addproduct" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <label for="name">Name</label>
-            <input type="text"  name="name"  required>
+            <input type="text" name="name" required>
 
             <label for="image">Image</label>
-            <input type="file"  name="image" class="file-upload" required>
+            <input type="file" name="image" class="file-upload" required>
 
             <label for="description">Description</label>
-            <input type="text"  name="description"  required>
-
-            
+            <input type="text" name="description" required>
 
             <label for="price">Price</label>
-            <input type="text"  name="price" required>
+            <input type="text" name="price" required>
+
             <label for="category">Category:</label>
             <select name="category" required>
-               <option value="" >Select a Category</option>
-               {% for i in data1 %}
-               <option value="{{ i.id }}">{{ i.name }}</option>
-               {% endfor %}
-           </select><br><br>
-           <label for="size">Size:</label>
-           <select name="Product_size" id="" multiple>
-            <option value="" >Select a size</option>
-              <option value="">1</option>
-              <option value="">15</option>
-              <option value="">Small</option>
-              <option value="">Medium</option>
-           </select>
-           
-           <label for="">Product_quantity</label>
-           <input type="text" name="product_quantity" required><br><br>
+                <option value="">Select a Category</option>
+                {% for i in data1 %}
+                    <option value="{{ i.id }}">{{ i.name }}</option>
+                {% endfor %}
+            </select><br><br>
+
+            <label for="size">Size:</label>
+            <select name="Product_size" id="" multiple>
+                <option value="" selected disabled>Select a size</option>
+                {% for i in sizes %}
+                <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+                
+            </select>
+
+            <label for="color">color:</label>
+            <select name="color" id="" multiple>
+                <option value="" selected disabled>Select a Color</option>
+                {% for i in colors %}
+                <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+                
+            </select>
+
+            
+            <label for="">Product Quantity</label>
+            <input type="text" name="product_quantity" required><br><br>
 
             <input type="submit" value="Add Product">
         </form>
     </div>
-{% endblock %}    
 </body>
 </html>
+{% endblock %}

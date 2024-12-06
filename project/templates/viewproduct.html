@@ -108,7 +108,21 @@
             transition: background-color 0.3s;
         }
 
-        
+        .sizes{
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+
+        } 
+        .size{
+            padding: 5px 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #555;
+            text-align: center;
+        }
 
         
         .pagination {
@@ -164,9 +178,22 @@
             <p>{{ product.description }}</p>
             <p class="price">{{ product.price }}</p>
             <p>{{product.product_quantity}}</p>
-            {% if product_size %}
-            <p>{{product.size}}</p>
-            {% endif %}
+            <div class="sizes">
+                {% for size in product.size.all %}
+                   <span class="size">{{size.name}}</span>
+                {% empty %} 
+                   <span class="No size available"></span> 
+                {% endfor %}     
+
+            </div>
+            <div class="colors">
+                {% for color in product.color.all %}
+                   <span class="color">{{color.name}}</span>
+                {% empty %} 
+                   <span class="No colors available"></span> 
+                {% endfor %}     
+
+            </div>
             <p>{{data2.name}}</p>
             <a href="{% url 'editproduct' id=product.id %}">Edit</a>
             <a href="{% url 'delete' id=product.id %}" class="delete">Delete</a>

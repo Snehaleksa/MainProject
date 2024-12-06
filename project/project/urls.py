@@ -25,7 +25,7 @@ urlpatterns = [
     path('',views.index),
     path('userregister',views.Register),
     path('companyregister',views.companyregister),
-    path('login',views.Login),
+    path('login',views.Login,name='login'),
     path('userhome',views.Userhome,name='userhome'),
     path('profileview',views.Profileview,name='profileview'),
     path('companyhome',views.Companyhome,name='companyhome'),
@@ -73,6 +73,10 @@ urlpatterns = [
     path('cash2/<int:id>',views.Cashpayemt2,name='cash2'),
     path('debit_card_payment2/<int:id>', views.debit_card_payment2, name='debit_card_payment2'),
     path('search2',views.searchproduct2),
+    path('add_size', views.add_size, name='add_size'),
+    path('add_color', views.add_color, name='add_color'),
+    path('color_list', views.color_list, name='color_list'),
+    path('delete_color/<int:id>',views.delete_color,name='delete_color'),
     
     
     

@@ -1,0 +1,18 @@
+<table>
+            
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Delete</th>
+    </tr>
+
+
+    {% for i in data %}
+    <tr>
+        <td>{{ i.id }}</td>
+        <td>{{ i.name }}</td>
+        <td><a href="{% url 'delete_color' id=i.id %}" class="delete-link">Delete</a></td>
+    </tr>
+    {% endfor %}
+
+</table>
