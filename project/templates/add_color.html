@@ -4,17 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(218, 243, 240);
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background: white;
+            padding: 30px 40px;
+            border-radius: 8px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: rgb(53, 52, 52);
+        }
+
+        label {
+            font-size: 16px;
+            color: grey;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="color"] {
+            width: 40%;
+            height: 50px;
+            border: none;
+            margin-bottom: 20px;
+            
+        }
+
+        input[type="submit"] {
+            background: blue;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        
+    </style>
 </head>
 <body>
-    
+
+<div class="form-container">
+    <h1>Add a New Color</h1>
     <form method="post" action="{% url 'add_color' %}">
         {% csrf_token %}
-        <label for="color">Color:</label>
-        <input type="color"  name="color" required>
-        
+        <label for="color">Select Color:</label>
+        <input type="color" name="color" id="color" required>
 
-        <input type="submit" value="add">
+        <input type="submit" value="Add Color">
     </form>
-    
+</div>
+
 </body>
 </html>

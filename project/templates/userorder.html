@@ -80,9 +80,11 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
-                
+                <th>Size</th>
+                <th>Color</th>
                 <th>Status</th>
                 <th>Actions</th>
+                
             </tr>
         </thead>
         <tbody>
@@ -91,7 +93,22 @@
                 <td>{{ i.cart_id.product_id.product_id }}{{ i.product_id.product_id }}</td>
                 <td>{{ i.cart_id.product_id.name }}{{ i.product_id.name }}</td>
                 <td>{{ i.cart_id.product_id.description }}{{ i.product_id.description }}</td>
-                <td>₹{{ i.cart_id.product_id.price }}{{ i.product_id.price }}</td>
+                <td>₹{{ i.product_id.price }}</td>
+                <td>
+                    {% for size in i.product_id.size.all %}
+                       <span class="size">{{size.name}}</span>
+                    {% empty %} 
+                       <span class="No size available"></span> 
+                    {% endfor %}     
+                </td>
+                <td>
+                    {% for color in i.product_id.color.all %}
+                       <span class="color">{{color.name}}</span>
+                    {% empty %} 
+                       <span class="No size available"></span> 
+                    {% endfor %}     
+        
+                 </td>
                 
                 <td>
                     {% if i.status == 'order send' %}

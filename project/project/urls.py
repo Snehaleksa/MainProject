@@ -74,9 +74,13 @@ urlpatterns = [
     path('debit_card_payment2/<int:id>', views.debit_card_payment2, name='debit_card_payment2'),
     path('search2',views.searchproduct2),
     path('add_size', views.add_size, name='add_size'),
+    path('delete_size/<int:id>',views.delete_size,name='delete_size'),
     path('add_color', views.add_color, name='add_color'),
     path('color_list', views.color_list, name='color_list'),
+    path('size_list', views.size_list, name='size_list'),
     path('delete_color/<int:id>',views.delete_color,name='delete_color'),
+    path('stripe-payment/<int:id>/',views.stripe_payment,name='stripe_payment'),
+    #path('buyall/<int:id>',views.buy_all,name='buyall'),
     
     
     

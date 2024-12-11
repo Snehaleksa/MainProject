@@ -4,21 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        table,td,th{
-            border:1px solid black;
-            border-collapse: collapse;
-        }
-    </style>
-</head>
-<body>
+
     
-{% for i in data %}
-{{i.name}}
-{% endfor %}
-{% for j in data1 %}
-{{j.name}}
-{% endfor %}
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: rgb(218, 243, 240);
+            
+        }
+    
+        .container2 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+    
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            width: 250px;
+            overflow: hidden;
+            text-align: center;
+        }
+    
+        
+    
+        .card img {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+    
+        .card h2 {
+            font-size: 18px;
+            margin: 10px 0;
+            color: rgb(68, 68, 68);
+        }
+    
+        .price {
+            font-size: 16px;
+            color: green;
+            font-weight: bold;
+        }
+    
+        
+
+
+        
+    
+
+    </style>
+    
+    
+    
+    
+    <div class="container2">
+        
+        {% for i in data1 %}
+        <div class="card">
+            <img src="{{ i.image.url }}" alt="{{ i.name }}">
+            <h2>{{ i.name }}</h2>
+            <p class="price">₹{{ i.price }} </p>
+            <p>Category: {{ i.category }}</p>
+            
+            
+            
+        </div>
+        {% endfor %}
+    </div>
+    
+    
+    
+    
+    
+
 
 
 </body>

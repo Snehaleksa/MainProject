@@ -3,41 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Company Details</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: rgb(218, 243, 240);
+            padding: 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: black;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            color: rgb(58, 57, 57);
+        }
+
+        th {
+            background: blue;
+            color: white;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        td {
+            font-size: 16px;
+        }
+    </style>
 </head>
 <body>
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Contactnumber</th>
-            <th>Email</th>
-            
-        
-        </tr>
-        {% for i in data %}
-        <tr>
-            <td>{{i.name}}</td>
-            <td>{{i.address}}"</td>
-            <td>{{i.contactnumber}}</td>
-            <td>{{i.email}}</td>
-            <td>
-                <form action="{% url 'adminuseraccept' id=i.id %}" method="post" style="display:inline;">
-                    {% csrf_token %}
-                    {% if i.company_id.status == 'pending' %}
-                        <button name="status" value="accepted">Accept</button>
-                        <button name="status" value="rejected">Reject</button>
-                    {% elif i.company_id.status == 'accepted' %}
-                        <button name="status" value="rejected">Reject</button>
-                    {% else %}
-                        <button name="status" value="accepted">Accept</button>
-                    {% endif %}
-                </form>
-            </td>
-            
-            
-        </tr>
-        {% endfor %}
-    </table>
+
+<h1>Company Details</h1>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Contact Number</th>
+        <th>Email</th>
+    </tr>
+
+    {% for i in data %}
+    <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.address }}</td>
+        <td>{{ i.contactnumber }}</td>
+        <td>{{ i.email }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
 </body>
 </html>

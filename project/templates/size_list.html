@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: rgb(218, 243, 240);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: rgb(53, 52, 52);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            
+            border-radius: 10px;
+        }
+
+        .add-size {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid rgb(207, 207, 207);
+        }
+
+        th {
+            background-color: turquoise;
+            color: white;
+        }
+
+    
+
+        .delete-link {
+            color: red;
+            text-decoration: none;
+            
+        }
+
+
+
+
+
+        @media (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            table {
+                font-size: 12px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Size Management</h1>
+        <a href="{% url 'add_size' %}" class="add-size">Add Size</a>
+        
+        
+        <table>
+            
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Delete</th>
+                </tr>
+            
+            
+                {% for i in data %}
+                <tr>
+                    <td>{{ i.id }}</td>
+                    <td>{{ i.name }}</td>
+                    <td><a href="{% url 'delete_size' id=i.id %}" class="delete-link">Delete</a></td>
+                    
+                </tr>
+                {% endfor %}
+            
+        </table>
+        
+        
+    </div>
+</body>
+</html>

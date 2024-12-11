@@ -80,20 +80,39 @@
 
     
     .sizes{
-            display: flex;
-            gap: 5px;
-            margin-bottom: 10px;
+        display: flex;
+        gap: 5px;
+        margin-bottom: 10px;
 
-        } 
-        .size{
-            padding: 5px 10px;
-            background-color: #f8f9fa;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 12px;
-            color: #555;
-            text-align: center;
-        }
+    } 
+    .size{
+        padding: 5px 10px;
+        background-color: #f8f9fa;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 12px;
+        color: #555;
+        text-align: center;
+    }
+    .colors{
+        display: flex;
+        gap: 5px;
+        margin-bottom: 10px;
+
+    } 
+    .color{
+        padding: 5px 10px;
+        background-color: #f8f9fa;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 12px;
+        color: #555;
+        text-align: center;
+    }
+    .sizemain{
+        display: flex;
+        justify-content: space-around;
+    }
 
     
 
@@ -181,14 +200,24 @@
         <p class="price">₹{{ i.price }} </p>
         <p>{{ i.product_quantity }} in stock</p>
         <p>Category: {{ i.category }}</p>
-        <div class="sizes">
-            {% for size in i.size.all %}
-               <span class="size">{{size.name}}</span>
-            {% empty %} 
-               <span class="No size available"></span> 
-            {% endfor %}     
-
-        </div> 
+        <div class="sizemain">
+            <div class="sizes">
+                {% for size in i.size.all %}
+                   <span class="size">{{size.name}}</span>
+                {% empty %} 
+                   <span class="No size available"></span> 
+                {% endfor %}     
+    
+            </div> 
+            <div class="colors">
+                {% for color in i.color.all %}
+                   <span class="color">{{color.name}}</span>
+                {% empty %} 
+                   <span class="No size available"></span> 
+                {% endfor %}     
+    
+            </div> 
+        </div>
         
         <div class="buttons">
             {% if i.product_quantity > 0 %}

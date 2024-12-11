@@ -76,6 +76,13 @@
                 <option value="{{i.id}}">{{i.name}}</option>
                 {% endfor %}
             </select>
+            <label for="">Color</label>
+            <select name="color" id="">
+                <option value="">Choose Color</option>
+                {% for i in data.product_id.color.all %}
+                <option value="{{i.id}}">{{i.name}}</option>
+                {% endfor %}
+            </select>
                 
             <input type="submit" value="Update Cart">
         </form>

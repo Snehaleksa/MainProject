@@ -68,12 +68,12 @@ class Cart(models.Model):
     
     quantity=models.IntegerField(default=1,null=True,blank=True)
     size=models.CharField(max_length=100,null=True,blank=True)
+    color=models.CharField(max_length=100,null=True,blank=True)
     
 
 
 class Order(models.Model):
     user_id=models.ForeignKey(User,on_delete=models.CASCADE)
-    
     product_id=models.ForeignKey(Product,on_delete=models.CASCADE,null=True,blank=True)
     payment=models.IntegerField()
     paymentmethod=models.CharField(max_length=100)

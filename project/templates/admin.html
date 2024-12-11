@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documnet</title>
+    <title>Document</title>
     <style>
         * {
             margin: 0;
@@ -12,50 +12,69 @@
         }
 
         body {
-            
+            font-family: Arial, sans-serif;
             display: flex;
+            height: 100vh;
+            background-color: rgb(218, 243, 240);
         }
 
         
-        .side {
+        .sidebar {
             width: 250px;
-            height: 100vh;
-            background-color: rgb(199, 180, 233);
+            background-color: rgb(83, 83, 83);
+            color: white;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
         }
 
-        .side a {
+        .sidebar h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .sidebar a {
             text-decoration: none;
             color: white;
-            font-size: 18px;
+            font-size: 16px;
             padding: 10px;
             border-radius: 5px;
             
         }
 
+        
+
+        
+        
+
+        @media screen and (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .sidebar h2 {
+                font-size: 18px;
+            }
 
 
-
+        }
     </style>
 </head>
 <body>
     
-    <div class="side">
-        <h2 style="color: black; text-align: center;">Admin Dashboard</h2>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
         <a href="{% url 'adminhome' %}">Admin Home</a>
-        <a href="{% url 'userdetails' %}">User Details</a>
-        <a href="{% url 'companydetails' %}">Company Details</a>
-        <a href="{% url 'viewallproduct' %}">View All Products</a>
-        <a href="{% url 'category_list' %}">Category</a>
-        <a href="{% url 'add_size' %}">Add size</a>
-        <a href="{% url 'add_color'}">Add Color</a>
-        <a href="{% url 'color_list' %}">color_list</a>
+        <a href="{% url 'userdetails' %}">Users</a>
+        <a href="{% url 'companydetails' %}">Company</a>
+        <a href="{% url 'viewallproduct'  %}">View All Products</a>
+        <a href="{% url 'category_list' %}">Categories</a>
+        <a href="{% url 'size_list' %}">Size</a>
+        <a href="{% url 'color_list' %}">Color</a>
     </div>
 
-
-
+   
 </body>
 </html>

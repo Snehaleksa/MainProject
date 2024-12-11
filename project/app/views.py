@@ -390,6 +390,13 @@ def viewcart(request):
     }  
     return render(request, 'viewcart.html',context)
 
+#def buy_all(request,id):
+    #data=Cart.objects.get(id=id)
+    #user = User.objects.get(user_id=request.user.id)
+    #cart_items = Cart.objects.filter(user_id=user)
+    #data1=data.product_id
+    #totalprice = data1.price * data.quantity
+    return render(request,'buyall.html',{'cart_items':cart_items,'totalprice':totalprice})
 
 def deletecart(request,id):
     data=Cart.objects.get(id=id)
@@ -403,6 +410,7 @@ def editcart(request,id):
     if request.method=='POST':
         data.quantity=request.POST['quantity'] 
         data.size=request.POST['size']
+        data.color=request.POST['color']
         data.save()  
         return redirect(viewcart)
     else:
@@ -419,44 +427,71 @@ def buyproduct(request,id):
     return render(request,'buyproduct.html',{'data':data,'data1':data1,'totalprice':totalprice,'cartnumber':data2}) 
 
 #order
+import stripe
+from django.conf import settings 
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+def stripe_payment(request,id):
+    try:
+        cart_item=Cart.objects.get(id=id)
+        total_amount = cart_item.product_id.price * cart_item.quantity
+
+        intent = stripe.PaymentIntent.create(
+            amount=int(total_amount*100),
+            currency="usd",
+            metadata={"cart_id":cart_item.id,"user_id":request.user.id},
+
+        )
+        context = {
+            'client_secret': intent.client_secret,
+            'STRIPE_PUBLISHABLE_KEY': settings.STRIPE_PUBLISHABLE_KEY,
+            'total_amount':total_amount,
+            'cart_item':cart_item,
+        }
+        return render(request,'stripe_payment.html',context)
+    except Cart.DoesNotExist:
+        return redirect(viewcart)
+
+
+
 def Cash_payment(request,id):
-    data=Cart.objects.get(id=id)
-    data1=data.product_id
-    user=User.objects.get(user_id=request.user.id)
-    data2=Cart.objects.filter(user_id=user).count
-    total_payment=data1.price*data.quantity
-    if request.method=='POST':
-        order=Order.objects.create(user_id=user,product_id=data1,payment=total_payment,paymentmethod='Cash',status='order send')
-        order.save()
-        data.delete()
-        data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
-        data.product_id.save()
+    try:
+
+       data=Cart.objects.get(id=id)
+       data1=data.product_id
+       user=User.objects.get(user_id=request.user.id)
+       data2=Cart.objects.filter(user_id=user).count
+       total_payment=data1.price*data.quantity
+       order=Order.objects.create(user_id=user,product_id=data1,payment=total_payment,paymentmethod='Cash',status='order send')
+       order.save()
+       data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
+       data.product_id.save()
+       data.delete()
         
-        return render(request,'order.html',{'data':data,'data1':data1,'user':user,'total_payment':total_payment})
-    else:
-        return render(request,'cash.html',{'data':data,'user':user,'total_payment':total_payment,'data.product_id.product_quantity':data.product_id.product_quantity,'cartnumber':data2})
+       return render(request,'order.html',{'data':data,'data1':data1,'user':user,'total_payment':total_payment})
+    except Cart.DoesNotExist:
+        return render(viewcart)
 
 
 
 
 
 def debit_card_payment(request, id):
-    user = User.objects.get(user_id=request.user.id) 
-    data= Cart.objects.get(id=id) 
-    data1=data.product_id
-    data2=Cart.objects.filter(user_id=user).count
-    total_payment=data.product_id.price* data.quantity
-    if request.method == 'POST':
-       
-        data1=Order.objects.create(user_id=user,product_id=data1,payment=total_payment,paymentmethod='Debitcard',status='order send')
-        data1.save() 
-        data.delete()
-        data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
-        data.product_id.save()   
-        return render(request, 'order_confirmation.html')
-    else:
-       return render(request, 'debit_card_payment.html', {'data': data,'total_payment':total_payment,'data.product_id.product_quantity':data.product_id.product_quantity,'cartnumber':data2})
-        
+    try:
+      user = User.objects.get(user_id=request.user.id) 
+      data= Cart.objects.get(id=id) 
+      data1=data.product_id
+      data2=Cart.objects.filter(user_id=user).count
+      total_payment=data.product_id.price* data.quantity
+      data1=Order.objects.create(user_id=user,product_id=data1,payment=total_payment,paymentmethod='Debitcard',status='order send')
+      data1.save() 
+      data.delete()
+      data.product_id.product_quantity=data.product_id.product_quantity-data.quantity
+      data.product_id.save()   
+      return render(request, 'order_confirmation.html')
+    except Cart.DoesNotExist:
+        return render(viewcart)
 
 
 
@@ -604,6 +639,16 @@ def add_size(request):
             
     return render(request, 'add_size.html')
 
+def size_list(request):
+    data = Size.objects.all()
+    return render(request, 'size_list.html', {'data': data})
+
+
+def delete_size(request,id):
+    data=Size.objects.get(id=id)
+    data.delete()
+    return redirect(size_list)
+
 def add_color(request):
     if request.method == 'POST':
         color = request.POST['color']
@@ -624,3 +669,6 @@ def searchproduct2(request):
         search=request.POST.get('search')
         data=Product.objects.filter(category__icontains=search)
         return render(request,'userproductview.html',{'data':data})
+    
+
+

@@ -1,0 +1,158 @@
+{% extends 'userhome.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        
+        body{
+            background-color: rgb(218, 243, 240);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: blue;
+        }
+
+        
+        .table-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            margin-top: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            
+        }
+
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgb(207, 207, 207);
+        }
+
+        th {
+            background-color: blue;
+            color: white;
+            font-weight: bold;
+        }
+
+        
+
+        img {
+            max-width: 80px;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                
+            }
+
+            table,   th, td, tr {
+                display: block;
+            }
+
+            img {
+                max-width: 60px;
+            }
+        }
+
+        
+        .dropdown {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .dropdown p {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .dropdown a {
+            display: inline-block;
+            margin: 5px 10px;
+            padding: 10px 20px;
+            background-color: blue;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            
+        }
+
+        .dropdown a:hover {
+            background-color: blue;
+        }
+
+        
+        @media (max-width: 480px) {
+            .dropdown a {
+                padding: 8px 16px;
+                font-size: 12px;
+                margin: 5px 5px;
+            }
+
+            .dropdown p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <h2>Product Details</h2>
+        <table>
+            
+                <tr>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>color</th>
+                    <th>Product quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            
+                {% for i in cart_items %}
+                <tr>
+                    <td data-label="Name">{{ i.product_id.name }}</td>
+                    <td data-label="Image"><img src="{{ i.product_id.image.url }}" alt="Product Image"></td>
+                    <td data-label="Description">{{ i.product_id.description }}</td>
+                    <td data-label="Price">{{ i.product_id.price }}</td>
+                    <td data-label="Quantity">{{ i.quantity }}</td>
+                    <td>{{i.product_id.color}}</td>
+                    <td>{{i.product_id.product_quantity}}</td>
+                    <td data-label="Total Price">{{ totalprice }}</td>
+                </tr>
+                {% endfor %}
+            
+        </table>
+
+
+    </div>
+{% endblock %}
+</body>
+</html>

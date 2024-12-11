@@ -131,6 +131,8 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>Quantity</th>
+                    <th>Color</th>
+                    <th>Size</th>
                     <th>Product quantity</th>
                     <th>Total Price</th>
                 </tr>
@@ -142,8 +144,23 @@
                     <td data-label="Description">{{ data1.description }}</td>
                     <td data-label="Price">{{ data1.price }}</td>
                     <td data-label="Quantity">{{ data.quantity }}</td>
-                    <td>{{data.color}}</td>
-                    <td>{{data.product_id.product_quantity}}</td>
+                    <td><div class="colors">
+                        {% for color in data1.color.all %}
+                           <span class="color">{{color.name}}</span>
+                        {% empty %} 
+                           <span class="No size available"></span> 
+                        {% endfor %}     
+            
+                    </div> </td>
+                    <td>            
+                        {% for size in data1.size.all %}
+                           <span class="size">{{size.name}}</span>
+                        {% empty %} 
+                           <span class="No size available"></span> 
+                        {% endfor %}     
+            
+                     </td>
+                    <td>{{data1.product_quantity}}</td>
                     <td data-label="Total Price">{{ totalprice }}</td>
                 </tr>
             
@@ -151,8 +168,8 @@
 
         <div class="dropdown">
             <p>Select Payment Method:</p>
-            <a href="{% url 'cash' id=data.id %}">Cash</a>
-            <a href="{% url 'debit_card_payment' id=data.id %}">Debit Card</a>
+            <a href="{% url 'stripe_payment' id=data.id %}">Cash</a>
+            <a href="{% url 'stripe_payment' id=data.id %}">Debit Card</a>
         </div>
     </div>
 {% endblock %}

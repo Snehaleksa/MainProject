@@ -119,6 +119,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'snehaleksa2016@gmail.com'
 EMAIL_HOST_PASSWORD = 'koxk clmn btmr hnhb'
 DEFAULT_FROM_EMAIL = 'snehaleksa2016@gmail.com'
+
+
+STRIPE_SECRET_KEY = 'sk_test_51QSxD3DbfJD1UJTpxPSHVs12RHQIJm48pFxHvflMKr1UgxmIn3AK45D8TQjZMti6G9qXQfJqojBnLY4OZCJPzywS00wegEdVDJ'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51QSxD3DbfJD1UJTpYPf8QF6USogGJabk7LS5bKTaOxksA9eEX7rrAYinErvyMRwQc6cDg5CZFuRalgHJCuF2DCyf00aiAD9Yqw'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
