@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% extends 'adminhome.html' %}
+{% block content %}
     <style>
         * {
             margin: 0;
@@ -13,7 +9,7 @@
 
         body {
             background-color: rgb(218, 243, 240);
-            padding: 20px;
+            
         }
 
         h1 {
@@ -22,9 +18,10 @@
             color:  rgb(73, 73, 73);
         }
 
-        .container {
+        .containera {
             max-width: 1200px;
             margin: 0 auto;
+            margin-top: 50px;
             background-color: white;
             padding: 20px;
         
@@ -85,7 +82,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="containera">
         <h1>User Details</h1>
         
         <table>
@@ -114,5 +111,4 @@
         
         
     </div>
-</body>
-</html>
+{% endblock %}

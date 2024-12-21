@@ -1,158 +1,108 @@
 {% extends 'userhome.html' %}
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        
+<style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        
-        body{
-            background-color: rgb(218, 243, 240);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: blue;
-        }
-
-        
-        .table-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            margin-top: 50px;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
+        body {
             
+            background-color: rgb(218, 243, 240);
+            text-align: center;
         }
 
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        h1 {
             margin-bottom: 20px;
-            overflow: hidden;
+            color: rgb(78, 76, 76);
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto 20px;
+            margin-top: 50px;
+            border-collapse: collapse;
+            background: white;
+            
         }
 
         th, td {
-            padding: 12px;
+            padding: 15px;
             text-align: left;
-            border-bottom: 1px solid rgb(207, 207, 207);
+            border-bottom: 1px solid rgb(221, 220, 220);
         }
 
         th {
-            background-color: blue;
-            color: white;
-            font-weight: bold;
+            background: turquoise;
+            font-size: 18px;
+            color: grey;
         }
 
-        
-
-        img {
-            max-width: 80px;
-            height: auto;
-            border-radius: 5px;
+        td {
+            font-size: 16px;
+            color: grey;
         }
 
-        
-        @media (max-width: 768px) {
-            table {
-                display: block;
-                
-            }
-
-            table,   th, td, tr {
-                display: block;
-            }
-
-            img {
-                max-width: 60px;
-            }
-        }
-
-        
-        .dropdown {
+        h2 {
             margin-top: 20px;
-            text-align: center;
+            color: grey;
+            font-size: 24px;
         }
 
-        .dropdown p {
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .dropdown a {
+        .link {
             display: inline-block;
-            margin: 5px 10px;
+            margin-top: 20px;
             padding: 10px 20px;
-            background-color: blue;
+            background: green;
             color: white;
             text-decoration: none;
+            font-size: 18px;
             border-radius: 5px;
-            font-size: 14px;
             
         }
 
-        .dropdown a:hover {
-            background-color: blue;
-        }
-
         
-        @media (max-width: 480px) {
-            .dropdown a {
-                padding: 8px 16px;
-                font-size: 12px;
-                margin: 5px 5px;
+
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
             }
 
-            .dropdown p {
-                font-size: 14px;
+            th, td {
+                padding: 10px;
+            }
+
+            .link {
+                font-size: 16px;
+                padding: 8px 16px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="table-container">
-        <h2>Product Details</h2>
-        <table>
-            
-                <tr>
-                    <th>Name</th>
-                    <th>Image</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>color</th>
-                    <th>Product quantity</th>
-                    <th>Total Price</th>
-                </tr>
-            
-                {% for i in cart_items %}
-                <tr>
-                    <td data-label="Name">{{ i.product_id.name }}</td>
-                    <td data-label="Image"><img src="{{ i.product_id.image.url }}" alt="Product Image"></td>
-                    <td data-label="Description">{{ i.product_id.description }}</td>
-                    <td data-label="Price">{{ i.product_id.price }}</td>
-                    <td data-label="Quantity">{{ i.quantity }}</td>
-                    <td>{{i.product_id.color}}</td>
-                    <td>{{i.product_id.product_quantity}}</td>
-                    <td data-label="Total Price">{{ totalprice }}</td>
-                </tr>
-                {% endfor %}
-            
-        </table>
 
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in cart_items %}
+        <tr>
+            <td>{{ item.product_id.name }}</td>
+            <td>₹{{ item.product_id.price }}</td>
+            <td>{{ item.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
-    </div>
+<h2>Total Price: ₹{{ total_price }}</h2>
+
+<a class="link" href="{% url 'cashpaymentall' %}">Proceed to Cash Payment</a>
+
 {% endblock %}
-</body>
-</html>

@@ -1,39 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Management</title>
+{% extends 'adminhome.html' %}
+{% block content %}
     <style>
         * {
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
 
         body {
             background-color: rgb(218, 243, 240);
-            padding: 40px;
+
         }
 
         h1 {
             text-align: center;
             color: rgb(66, 66, 66);
-            margin-bottom: 30px;
+            
         }
 
         .action-link {
             display: inline-block;
             text-decoration: none;
-            background: blue;
+            background: green;
             color: white;
             padding: 10px 20px;
             font-size: 16px;
             border-radius: 5px;
             margin-bottom: 20px;
         }
-
+        .containera {
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            margin-top: 70px;
+            margin-left: 250px;
+            border-radius: 10px;
+        }
         
 
         table {
@@ -52,7 +54,7 @@
         }
 
         th {
-            background: blue;
+            background: turquoise;
             color: white;
             text-transform: uppercase;
             font-size: 14px;
@@ -77,28 +79,28 @@
     </style>
 </head>
 <body>
-
-<h1>Color Management</h1>
-
-
-<a href="{% url 'add_color' %}" class="action-link">Add Color</a>
+ <div class="containera">
+  <h1>Color Management</h1>
 
 
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Delete</th>
-    </tr>
+  <a href="{% url 'add_color' %}" class="action-link">Add Color</a>
 
-    {% for i in data %}
-    <tr>
-        <td>{{ i.id }}</td>
-        <td>{{ i.name }}</td>
-        <td><a href="{% url 'delete_color' id=i.id %}" class="delete-link">Delete</a></td>
-    </tr>
-    {% endfor %}
-</table>
 
-</body>
-</html>
+  <table>
+      <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Delete</th>
+      </tr>
+
+      {% for i in data %}
+      <tr>
+          <td>{{ i.id }}</td>
+          <td>{{ i.name }}</td>
+          <td><a href="{% url 'delete_color' id=i.id %}" class="delete-link">Delete</a></td>
+      </tr>
+      {% endfor %}
+  </table>
+ </div> 
+
+{% endblock %}

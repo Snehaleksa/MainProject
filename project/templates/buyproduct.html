@@ -168,7 +168,7 @@
 
         <div class="dropdown">
             <p>Select Payment Method:</p>
-            <a href="{% url 'stripe_payment' id=data.id %}">Cash</a>
+            <a href="{% url 'cash' id=data.id %}">Cash</a>
             <a href="{% url 'stripe_payment' id=data.id %}">Debit Card</a>
         </div>
     </div>

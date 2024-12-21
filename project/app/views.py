@@ -390,13 +390,37 @@ def viewcart(request):
     }  
     return render(request, 'viewcart.html',context)
 
-#def buy_all(request,id):
-    #data=Cart.objects.get(id=id)
-    #user = User.objects.get(user_id=request.user.id)
-    #cart_items = Cart.objects.filter(user_id=user)
-    #data1=data.product_id
-    #totalprice = data1.price * data.quantity
-    return render(request,'buyall.html',{'cart_items':cart_items,'totalprice':totalprice})
+def buy_all(request):
+    user = User.objects.get(user_id=request.user.id)
+    data=Cart.objects.all()
+    cart_items = Cart.objects.filter(user_id=user)
+    total_price = 0
+    for item in cart_items:
+        total_price += item.product_id.price * item.quantity
+
+    return render(request, 'buyall.html', {'cart_items': cart_items,'total_price':total_price,'data':data}) 
+
+def cash_payment_all(request):
+    try:
+        
+        user = User.objects.get(user_id=request.user.id)
+        cart_items = Cart.objects.filter(user_id=user)
+        for item in cart_items:
+            product = item.product_id
+            total_payment = product.price * item.quantity
+            order = Order.objects.create(user_id=user,product_id=product,payment=total_payment,paymentmethod='cash',status='ordersend')
+            order.save()
+
+            
+            product.product_quantity -= item.quantity
+            product.save()
+        cart_items.delete()
+
+        return render(request, 'order.html', {'user': user})
+
+    except Cart.DoesNotExist:
+        return redirect('viewcart')  
+
 
 def deletecart(request,id):
     data=Cart.objects.get(id=id)

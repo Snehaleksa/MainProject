@@ -32,7 +32,7 @@ urlpatterns = [
     path('companyprofile',views.Companyprofile,name='companyprofile'),
     path('edit/<int:id>',views.edit,name='edit'),
     path('companyedit/<int:id>',views.companyedit,name='companyedit'),
-    path('admin',views.admin),
+    path('admin',views.admin,name='admin'),
     path('addproduct',views.addproduct,name='addproduct'),
     path('adminuseraccept/<int:id>',views.adminuseraccept,name='adminuseraccept'),
     path('viewproduct',views.viewproduct,name='viewproduct'),
@@ -50,6 +50,7 @@ urlpatterns = [
     path('editcart/<int:id>',views.editcart,name='editcart'),
     path('buyproduct/<int:id>',views.buyproduct,name='buyproduct'),
     path('cash/<int:id>',views.Cash_payment,name='cash'),
+    
    
     path('debit_card_payment/<int:id>', views.debit_card_payment, name='debit_card_payment'),
     path('logout',views.Logout,name='logout'),
@@ -80,7 +81,8 @@ urlpatterns = [
     path('size_list', views.size_list, name='size_list'),
     path('delete_color/<int:id>',views.delete_color,name='delete_color'),
     path('stripe-payment/<int:id>/',views.stripe_payment,name='stripe_payment'),
-    #path('buyall/<int:id>',views.buy_all,name='buyall'),
+    path('buyall',views.buy_all,name='buyall'),
+    path('cashpaymentall',views.cash_payment_all,name='cashpaymentall'),
     
     
     

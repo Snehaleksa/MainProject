@@ -251,7 +251,7 @@
     <div class="container">
         <h2>View Latest Products</h2>
         <div class="product-grid">
-          {% for i in data2|slice:4 %}
+          {% for i in data2|slice:5 %}
           
             <div class="product-card">
                 <a href="{% url 'viewproductdetails' id=i.id %}" ><img src="{{i.image.url}}" alt=""></a>

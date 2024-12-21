@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+{% extends 'adminhome.html' %}
+{% block content %}
     <style>
         * {
             margin: 0;
@@ -13,7 +9,7 @@
 
         body {
             background-color: rgb(218, 243, 240);
-            padding: 20px;
+            
         }
 
         h1 {
@@ -22,18 +18,17 @@
             color: rgb(53, 52, 52);
         }
 
-        .container {
+        .containera {
             max-width: 800px;
-            margin: 0 auto;
             background-color: white;
             padding: 20px;
-            
+            margin-top: 70px;
+            margin-left: 250px;
             border-radius: 10px;
         }
 
         .add-category {
             display: inline-block;
-            margin-bottom: 20px;
             padding: 10px 20px;
             background-color: green;
             color: white;
@@ -95,7 +90,7 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="containera">
         <h1>Category Management</h1>
         <a href="{% url 'add_category' %}" class="add-category">Add Category</a>
         
@@ -121,5 +116,4 @@
         
         
     </div>
-</body>
-</html>
+{% endblock %}

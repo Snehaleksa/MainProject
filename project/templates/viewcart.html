@@ -205,11 +205,14 @@
                 </div>
             </div>
         </div>
+        
+
+        {% endfor %}
         <div class="total_price">
             <h2>Subtotal: {{ total_price }}</h2>
+            <p><a href="{% url 'buyall' %}">Buyall</a></p>
+            
         </div>
-        {% endfor %}
-        
         <div class="pagination">
             {% if data.has_previous %}
             <a href="?page=1">&laquo; First</a>

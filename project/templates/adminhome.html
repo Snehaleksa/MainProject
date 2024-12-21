@@ -1,4 +1,6 @@
+
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,12 +15,44 @@
 
         body {
             background-color: rgb(218, 243, 240);
-            padding: 20px;
+        
         }
+        .nav-container {
+            width: 100%;
+            
+            background-color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgb(223, 219, 219);
+        }
+
+        .nav-container nav {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-container nav a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .profile-pic {
+            width: 35px;
+            height: 35px;
+        
+        }
+        
 
         
 
         table {
+            margin-top: 50px;
             width: 100%;
             border-collapse: collapse;
             background-color: white;
@@ -87,6 +121,21 @@
     </style>
 </head>
 <body>
+    <div class="nav-container">
+        <img src="{% static 'images/favicon.png' %}" alt="Logo" class="profile-pic">
+        <nav>
+            <a href="{% url 'admin' %}">Admin </a>
+            <a href="{% url 'adminhome' %}"><img src="{% static 'img/userhome.jpg' %}" alt="" height="30px" width="35px"></a>
+            <a href="{% url 'userdetails' %}">Users</a>
+            <a href="{% url 'companydetails' %}" >Company</a>
+            <a href="{% url 'viewallproduct' %}">View all products</a>
+            <a href="{% url 'category_list' %}">Category</a>
+            <a href="{% url 'color_list' %}">Color</a>
+            <a href="{% url 'size_list' %}">Size</a>
+            <a href="{% url 'logout' %}"><img src="{% static 'img/logout.png' %}" alt="" height="20px" width="20px"></a>
+        </nav>
+    </div>
+    {% block content %}
     <div class="container">
         
         <table>
@@ -124,5 +173,6 @@
             
         </table>
     </div>
+{% endblock %}    
 </body>
 </html>

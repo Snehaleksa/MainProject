@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company Details</title>
+{% extends 'adminhome.html' %}
+{% block content %}
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +9,15 @@
 
         body {
             background-color: rgb(218, 243, 240);
-            padding: 40px;
+            
+        }
+        .containera {
+            max-width: 800px;
+            background-color: white;
+            padding: 20px;
+            margin-top: 70px;
+            margin-left: 250px;
+            border-radius: 10px;
         }
 
         h1 {
@@ -50,26 +54,25 @@
     </style>
 </head>
 <body>
+ <div class="containera">
+  <h1>Company Details</h1>
 
-<h1>Company Details</h1>
+  <table>
+      <tr>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Contact Number</th>
+          <th>Email</th>
+      </tr>
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Contact Number</th>
-        <th>Email</th>
-    </tr>
-
-    {% for i in data %}
-    <tr>
-        <td>{{ i.name }}</td>
-        <td>{{ i.address }}</td>
-        <td>{{ i.contactnumber }}</td>
-        <td>{{ i.email }}</td>
-    </tr>
-    {% endfor %}
-</table>
-
-</body>
-</html>
+      {% for i in data %}
+      <tr>
+          <td>{{ i.name }}</td>
+          <td>{{ i.address }}</td>
+          <td>{{ i.contactnumber }}</td>
+          <td>{{ i.email }}</td>
+      </tr>
+      {% endfor %}
+  </table>
+</div>
+{% endblock %}
