@@ -83,6 +83,15 @@ urlpatterns = [
     path('stripe-payment/<int:id>/',views.stripe_payment,name='stripe_payment'),
     path('buyall',views.buy_all,name='buyall'),
     path('cashpaymentall',views.cash_payment_all,name='cashpaymentall'),
+    path('edituserdetails/<int:id>',views.edituserdetails,name='edituserdetails'),
+    path('editcompanydetails/<int:id>',views.editcompanydetails,name='editcompanydetails'),
+    path('deleteuser/<int:id>',views.deleteuser,name='deleteuser'),
+    path('deletecompany/<int:id>',views.deletecompany,name='deletecompany'),
+    path('viewproductdetailsall/<int:id>',views.viewproductdetailsall,name='viewproductdetailsall'),
+    path('admindashbord',views.admindashbord,name='admindashbord'),
+    
+    
+    
     
     
     

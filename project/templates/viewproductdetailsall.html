@@ -1,0 +1,62 @@
+{% extends 'admin.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       
+        
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            margin: 0 auto;
+            margin-top: 50px;
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            height: 400px;
+        }
+        .card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .card h2 {
+            margin-bottom: 10px;
+            color: rgb(78, 74, 74);
+        }
+        .card p {
+            color: rgb(102, 100, 100);
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        .card .price {
+            color: rgb(111, 163, 111);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+    </style>
+</head>
+<body style="background-color: rgb(218, 243, 240);">
+    <div class="card">
+        <img src="{{ product.image.url }}" alt="">
+        <h2>{{ product.name }}</h2>
+        <p>{{ product.description }}</p>
+        <p class="price">{{ product.price }}</p>
+    
+    </div>
+{% endblock %}
+</body>
+</html>

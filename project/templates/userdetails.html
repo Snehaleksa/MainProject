@@ -1,4 +1,4 @@
-{% extends 'adminhome.html' %}
+{% extends 'admin.html' %}
 {% block content %}
     <style>
         * {
@@ -21,10 +21,10 @@
         .containera {
             max-width: 1200px;
             margin: 0 auto;
-            margin-top: 50px;
+            margin-top: 20px;
             background-color: white;
             padding: 20px;
-        
+            height: 500px;
             border-radius: 10px;
         }
 
@@ -51,6 +51,16 @@
         td img {
             border-radius: 50%;
             object-fit: cover;
+        }
+        .add-user {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
         }
 
         
@@ -82,9 +92,10 @@
     </style>
 </head>
 <body>
+    
     <div class="containera">
         <h1>User Details</h1>
-        
+        <a href="userregister" class="add-user">Add Users</a>
         <table>
             
                 <tr>
@@ -93,6 +104,8 @@
                     <th>Address</th>
                     <th>Email</th>
                     <th>Phone</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             
             
@@ -103,6 +116,8 @@
                     <td>{{ i.address }}</td>
                     <td>{{ i.email }}</td>
                     <td>{{ i.phone }}</td>
+                    <td><a href="{% url 'edituserdetails' id=i.id %}">Edit</a></td>
+                    <td><a href="{% url 'deleteuser' id=i.id %}">Delete</a></td>
                 </tr>
                 {% endfor %}
             

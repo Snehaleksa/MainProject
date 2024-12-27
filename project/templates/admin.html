@@ -12,7 +12,6 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
             display: flex;
             height: 100vh;
             background-color: rgb(218, 243, 240);
@@ -43,7 +42,34 @@
             border-radius: 5px;
             
         }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
 
+        .card {
+            width: 250px;
+            height: 150px;
+            background-color: white;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 18px;
+            font-weight: bold;
+        }   
         
 
         
@@ -57,7 +83,10 @@
             .sidebar h2 {
                 font-size: 18px;
             }
-
+            .main-content {
+                flex-direction: column;
+                gap: 20px;
+            }
 
         }
     </style>
@@ -66,6 +95,7 @@
     
     <div class="sidebar">
         <h2>Admin Dashboard</h2>
+        <a href="{% url 'admin' %}">Admin Dashboard</a>
         <a href="{% url 'adminhome' %}">Admin Home</a>
         <a href="{% url 'userdetails' %}">Users</a>
         <a href="{% url 'companydetails' %}">Company</a>
@@ -75,6 +105,22 @@
         <a href="{% url 'color_list' %}">Color</a>
     </div>
 
-   
+   {% block content %}
+   <div class="main-content">
+    <div class="card">
+        <h3>Total Users</h3>
+        <p>{{ user_count }}</p>
+    </div>
+    <div class="card">
+        <h3>Total Companies</h3>
+        <p></p>
+    </div>
+    <div class="card">
+        <h3>Total Orders</h3>
+        <p></p>
+    </div>
+   </div>
+
+   {% endblock %}
 </body>
 </html>

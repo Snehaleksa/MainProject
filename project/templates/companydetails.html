@@ -1,4 +1,4 @@
-{% extends 'adminhome.html' %}
+{% extends 'admin.html' %}
 {% block content %}
     <style>
         * {
@@ -11,13 +11,14 @@
             background-color: rgb(218, 243, 240);
             
         }
-        .containera {
+        .containera1 {
             max-width: 800px;
             background-color: white;
             padding: 20px;
             margin-top: 70px;
-            margin-left: 250px;
+            margin-left: 180px;
             border-radius: 10px;
+            height: 500px;
         }
 
         h1 {
@@ -33,6 +34,7 @@
             background: white;
             border-radius: 8px;
             overflow: hidden;
+            margin-top: 20px;
         }
 
         th, td {
@@ -51,11 +53,23 @@
         td {
             font-size: 16px;
         }
+        .add-company {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: green;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 14px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
- <div class="containera">
+ <div class="containera1">
   <h1>Company Details</h1>
+
+        <a href="companyregister" class="add-company">Add Company</a>
 
   <table>
       <tr>
@@ -63,6 +77,8 @@
           <th>Address</th>
           <th>Contact Number</th>
           <th>Email</th>
+          <th>Edit</th>
+          <th>Delete</th>
       </tr>
 
       {% for i in data %}
@@ -71,6 +87,8 @@
           <td>{{ i.address }}</td>
           <td>{{ i.contactnumber }}</td>
           <td>{{ i.email }}</td>
+          <td><a href="{% url 'editcompanydetails' id=i.id %}">Company edit</a></td>
+          <td><a href="{% url 'deletecompany' id=i.id %}">Delete</a></td>
       </tr>
       {% endfor %}
   </table>

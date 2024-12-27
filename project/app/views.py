@@ -696,3 +696,52 @@ def searchproduct2(request):
     
 
 
+def edituserdetails(request,id):
+    data=User.objects.get(id=id)
+    if request.method=='POST':
+        data.name=request.POST['name']
+        if 'image' in request.FILES:
+            data.image=request.FILES['image']
+        data.address=request.POST['address']
+        data.email=request.POST['email']
+        data.phone=request.POST['phone']
+        data.save()
+        return redirect(userdetails)
+    else:
+        return render(request,'edituserdetails.html',{'data':data})
+    
+    
+
+def editcompanydetails(request,id):
+    data=Company.objects.get(id=id)
+    if request.method=='POST':
+        data.name=request.POST['name']
+        data.address=request.POST['address']
+        data.contactnumber=request.POST['contactnumber']
+        data.email=request.POST['email']
+        data.save()
+        return redirect(Companydetails)
+    else:
+        return render(request,'editcompanydetails.html',{'data':data})
+
+
+def deleteuser(request,id):
+    data=User.objects.get(id=id)
+    data.delete()
+    return redirect(userdetails)
+def deletecompany(request,id):
+    data=Company.objects.get(id=id)
+    data.delete()
+    return redirect(Companydetails)
+
+
+
+def viewproductdetailsall(request, id):
+    product = Product.objects.get(id=id)
+    
+
+    return render(request, 'viewproductdetailsall.html', {'product': product})
+
+def admindashbord(request):
+    user_count=CustomUser.objects.filter(user_type='user').count()
+    return render(request,'admin.html',{'user_count': user_count})

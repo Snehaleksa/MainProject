@@ -1,11 +1,12 @@
-
+{% extends 'admin.html' %}
+{% block content %}
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Management</title>
+    <title>Document</title>
     <style>
         * {
             margin: 0;
@@ -17,51 +18,24 @@
             background-color: rgb(218, 243, 240);
         
         }
-        .nav-container {
-            width: 100%;
-            
-            background-color: white;
-            padding: 15px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            border-bottom: 1px solid rgb(223, 219, 219);
-        }
 
-        .nav-container nav {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .nav-container nav a {
-            color: black;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-        }
-
-        .profile-pic {
-            width: 35px;
-            height: 35px;
-        
-        }
+       
         
 
         
 
         table {
-            margin-top: 50px;
+            margin-top: 100px;
             width: 100%;
             border-collapse: collapse;
             background-color: white;
             border-radius: 8px;
             overflow: hidden;
+            
         }
 
         th, td {
-            padding: 12px 15px;
+            padding: 30px 30px;
             text-align: left;
         }
 
@@ -98,45 +72,48 @@
 
 
 
-        .container {
+        .container1 {
             max-width: 1200px;
-            margin: 0 auto;
+            margin-left: 150px;
         }
-
         @media (max-width: 768px) {
             table {
+                width: 100%;
                 font-size: 14px;
             }
 
             th, td {
                 padding: 10px;
             }
+
+            button {
+                font-size: 12px;
+            }
         }
 
         @media (max-width: 480px) {
             table {
+                width: 100%;
                 font-size: 12px;
             }
+
+            th, td {
+                padding: 8px;
+            }
+
+            button {
+                font-size: 10px;
+                padding: 5px;
+            }
         }
+
+        
     </style>
 </head>
 <body>
-    <div class="nav-container">
-        <img src="{% static 'images/favicon.png' %}" alt="Logo" class="profile-pic">
-        <nav>
-            <a href="{% url 'admin' %}">Admin </a>
-            <a href="{% url 'adminhome' %}"><img src="{% static 'img/userhome.jpg' %}" alt="" height="30px" width="35px"></a>
-            <a href="{% url 'userdetails' %}">Users</a>
-            <a href="{% url 'companydetails' %}" >Company</a>
-            <a href="{% url 'viewallproduct' %}">View all products</a>
-            <a href="{% url 'category_list' %}">Category</a>
-            <a href="{% url 'color_list' %}">Color</a>
-            <a href="{% url 'size_list' %}">Size</a>
-            <a href="{% url 'logout' %}"><img src="{% static 'img/logout.png' %}" alt="" height="20px" width="20px"></a>
-        </nav>
-    </div>
-    {% block content %}
-    <div class="container">
+
+    
+    <div class="container1">
         
         <table>
             
@@ -173,6 +150,7 @@
             
         </table>
     </div>
-{% endblock %}    
+   
 </body>
 </html>
+{% endblock %}

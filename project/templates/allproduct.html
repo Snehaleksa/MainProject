@@ -1,4 +1,4 @@
-{% extends 'adminhome.html' %}
+{% extends 'admin.html' %}
 {% block content %}
 
     
@@ -22,16 +22,17 @@
         .card {
             background-color: white;
             border-radius: 10px;
-            width: 250px;
+            width: 200px;
             overflow: hidden;
             text-align: center;
+            height: 200px;
         }
     
         
     
         .card img {
             width: 100%;
-            height: 200px;
+            height: 100px;
             border-radius: 8px;
             margin-bottom: 15px;
             object-fit: cover;
@@ -66,9 +67,8 @@
         <div class="card">
             <img src="{{ i.image.url }}" alt="{{ i.name }}">
             <h2>{{ i.name }}</h2>
-            <p class="price">₹{{ i.price }} </p>
-            <p>Category: {{ i.category }}</p>
-            
+           
+            <a href="{% url 'viewproductdetailsall' id=i.id %}">View</a>
             
             
         </div>
